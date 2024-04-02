@@ -17,7 +17,6 @@ class MainApp extends StatelessWidget {
         textTheme: CustomThemeData.textTheme,
         colorScheme: CustomThemeData.colorScheme,
       ),
-      // home: ,
     );
   }
 }
