@@ -15,11 +15,14 @@ class MainApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       routes: PageRoutes.routes,
-      initialRoute: "/splash",
+      initialRoute: "/teacher",
       theme: ThemeData(
         fontFamily: "Montserrat",
         textTheme: CustomThemeData.textTheme,
+        appBarTheme: CustomThemeData.appBarTheme,
       ),
+      transitionDuration: const Duration(milliseconds: 700),
+      defaultTransition: Transition.upToDown,
       // home: const AuthPage(),
     );
   }

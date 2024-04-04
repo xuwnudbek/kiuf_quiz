@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kiuf_quiz/utils/rgb.dart';
 
 class CustomThemeData {
   static TextTheme textTheme = const TextTheme(
@@ -23,5 +24,15 @@ class CustomThemeData {
       800: Color(0xFF072e7e),
       900: Color(0xFF072e7e),
     }),
+  );
+
+  //AppbarTheme
+  static AppBarTheme appBarTheme = AppBarTheme(
+    toolbarHeight: 70,
+    backgroundColor: RGB.primary,
+    titleTextStyle: const TextStyle(
+      fontSize: 24,
+      fontWeight: FontWeight.w600,
+    ),
   );
 }
