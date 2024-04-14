@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kiuf_quiz/providers/student_provider.dart';
+import 'package:kiuf_quiz/providers/student/student_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:provider/provider.dart';
 

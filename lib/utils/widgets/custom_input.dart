@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kiuf_quiz/utils/rgb.dart';
 
 class CustomInput extends StatefulWidget {
   const CustomInput({
@@ -9,14 +10,18 @@ class CustomInput extends StatefulWidget {
     this.prefixIcon,
     this.hintText,
     this.obscureText = false,
+    this.bgColor,
     this.formatters,
+    this.padding,
     super.key,
   });
 
   final TextEditingController controller;
   final IconData? prefixIcon;
+  final Color? bgColor;
   final String? hintText;
   final bool obscureText;
+  final EdgeInsets? padding;
   final List<TextInputFormatter>? formatters;
 
   @override
@@ -24,19 +29,26 @@ class CustomInput extends StatefulWidget {
 }
 
 class _CustomInputState extends State<CustomInput> {
-  bool show = false;
+  bool? show;
+
+  @override
+  void initState() {
+    show = widget.obscureText;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
+    return Container(
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey.withOpacity(0.5),
-            width: 1,
-          ),
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(
+          color: RGB.white.withOpacity(.3),
+          width: 0.5,
         ),
+        color: widget.bgColor ?? RGB.white,
       ),
+      padding: widget.padding ?? const EdgeInsets.all(0.0),
       child: Row(
         children: [
           Visibility(
@@ -48,12 +60,12 @@ class _CustomInputState extends State<CustomInput> {
             child: TextFormField(
               inputFormatters: widget.formatters ?? [],
               controller: widget.controller,
-              obscureText: show,
+              obscureText: show ?? false,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 hintText: widget.hintText ?? "",
                 hintStyle: Get.textTheme.bodyMedium!.copyWith(
-                  color: Colors.grey,
+                  color: Colors.black26,
                 ),
               ),
             ),
@@ -61,26 +73,30 @@ class _CustomInputState extends State<CustomInput> {
           const SizedBox(width: 12.0),
           Visibility(
             visible: widget.obscureText,
-            child: IconButton(
-              onPressed: () {
-                setState(() {
-                  show = !show;
-                });
-
-                if (!show) {
-                  Future.delayed(
-                    const Duration(seconds: 3),
-                    () {
-                      setState(() {
-                        show = !show;
-                      });
-                    },
-                  );
-                }
-              },
-              icon: Icon(
-                show ? Ionicons.eye_off_outline : Ionicons.eye_outline,
-              ),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      show = !(show ?? false);
+                    });
+                    if (!(show ?? false)) {
+                      Future.delayed(
+                        const Duration(seconds: 3),
+                        () {
+                          setState(() {
+                            show = !(show ?? false);
+                          });
+                        },
+                      );
+                    }
+                  },
+                  icon: Icon(
+                    show ?? false ? Ionicons.eye_off_outline : Ionicons.eye_outline,
+                  ),
+                ),
+                const SizedBox(width: 4.0),
+              ],
             ),
           ),
         ],

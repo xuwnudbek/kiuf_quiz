@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class AuthProvider extends ChangeNotifier {
   var userId = TextEditingController();
@@ -17,6 +16,6 @@ class AuthProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
 
-    Get.offAndToNamed("/teacher");
+    // Get.offAndToNamed("/teacher");
   }
 }

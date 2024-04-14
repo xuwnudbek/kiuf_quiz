@@ -58,8 +58,9 @@ class AuthPage extends StatelessWidget {
                             const SizedBox(height: 16.0),
                             CustomInput(
                               controller: provider.userId,
+                              bgColor: RGB.blueLight,
                               prefixIcon: Ionicons.key_outline,
-                              hintText: "User ID",
+                              hintText: "user_id".tr,
                               formatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 LengthLimitingTextInputFormatter(10),
@@ -68,24 +69,30 @@ class AuthPage extends StatelessWidget {
                             const SizedBox(height: 8.0),
                             CustomInput(
                               controller: provider.password,
+                              bgColor: RGB.blueLight,
                               prefixIcon: Ionicons.lock_closed_outline,
-                              hintText: "Password",
+                              hintText: "password".tr,
                               obscureText: true,
                             ),
                             const SizedBox(height: 24.0),
                             CustomButton(
-                              title: provider.isLoading
-                                  ? SizedBox.square(
-                                      dimension: 20,
-                                      child: CircularProgressIndicator(
-                                        color: RGB.white,
-                                        strokeWidth: 1.5,
-                                      ),
-                                    )
-                                  : Text(
-                                      "Kirish",
-                                      style: Get.textTheme.bodyMedium!.copyWith(color: RGB.white),
-                                    ),
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  provider.isLoading
+                                      ? SizedBox.square(
+                                          dimension: 23,
+                                          child: CircularProgressIndicator(
+                                            color: RGB.white,
+                                            strokeWidth: 1.5,
+                                          ),
+                                        )
+                                      : Text(
+                                          "login".tr,
+                                          style: Get.textTheme.bodyMedium!.copyWith(color: RGB.white),
+                                        ),
+                                ],
+                              ),
                               onPressed: () {
                                 provider.login();
                               },

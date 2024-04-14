@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 
 class CustomButton extends StatefulWidget {
   const CustomButton({
     required this.title,
     this.bgColor,
+    this.splashColor,
     this.onPressed,
     super.key,
   });
 
   final Widget title;
   final Color? bgColor;
+  final Color? splashColor;
   final Function()? onPressed;
 
   @override
@@ -23,27 +26,22 @@ class _CustomButtonState extends State<CustomButton> {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(widget.bgColor ?? RGB.primary),
+        surfaceTintColor: const MaterialStatePropertyAll(Colors.transparent),
+        overlayColor: MaterialStatePropertyAll(widget.bgColor ?? RGB.primary),
         elevation: const MaterialStatePropertyAll(0.0),
-        maximumSize: const MaterialStatePropertyAll(
-          Size(double.infinity, 60),
-        ),
-        minimumSize: const MaterialStatePropertyAll(
-          Size(double.infinity, 50),
-        ),
         shape: MaterialStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
         ),
+        foregroundColor: MaterialStatePropertyAll(RGB.white),
       ),
       onPressed: () {
         widget.onPressed?.call();
       },
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          widget.title,
-        ],
+      child: widget.title.paddingSymmetric(
+        horizontal: 16.0,
+        vertical: 14.0,
       ),
     );
   }
