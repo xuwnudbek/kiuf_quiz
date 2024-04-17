@@ -30,4 +30,18 @@ class CustomSnackbars {
       ),
     );
   }
+
+  static error(BuildContext ctx, String msg) {
+    ScaffoldMessenger.of(ctx).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.red,
+        content: Text(
+          msg,
+          style: Get.textTheme.bodyMedium!.copyWith(
+            color: RGB.white,
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:kiuf_quiz/pages/Auth/auth.dart';
 import 'package:kiuf_quiz/pages/Splash/splash_page.dart';
 import 'package:kiuf_quiz/pages/Student/student.dart';
 import 'package:kiuf_quiz/pages/Teacher/teacher.dart';
+import 'package:kiuf_quiz/pages/Teacher/views/add_question.dart';
 import 'package:kiuf_quiz/pages/Teacher/views/add_quiz.dart';
 import 'package:kiuf_quiz/pages/Teacher/views/show_quiz.dart';
 
@@ -17,6 +18,7 @@ class PageRoutes {
     '/teacher': (ctx) => const TeacherPage(),
     '/show-quiz': (ctx) => const ShowQuiz(),
     '/add-quiz': (ctx) => const AddQuiz(),
+    '/add-question': (ctx) => const AddQuestion(),
 
     //Student
     '/student': (ctx) => const StudentPage(),

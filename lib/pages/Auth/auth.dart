@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kiuf_quiz/providers/auth_provider.dart';
+import 'package:kiuf_quiz/providers/auth/auth_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_input.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';

@@ -257,7 +257,7 @@ class _MainCardState extends State<MainCard> {
                       bgColor: RGB.primary,
                       onPressed: () {
                         Storage.setQuizId(widget.data["id"]);
-                        Get.offAndToNamed("/show-quiz");
+                        Get.toNamed("/show-quiz");
                       },
                     ),
                     const SizedBox(height: 4.0),

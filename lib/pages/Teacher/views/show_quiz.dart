@@ -1,14 +1,11 @@
 import 'dart:developer';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 import 'package:kiuf_quiz/providers/teacher/quiz_provider.dart';
 import 'package:kiuf_quiz/providers/teacher/show_quiz_provider.dart';
-import 'package:kiuf_quiz/providers/teacher/teacher_provider.dart';
 import 'package:kiuf_quiz/utils/extensions/datetime.dart';
 import 'package:kiuf_quiz/utils/extensions/time_of_day.dart';
 import 'package:kiuf_quiz/utils/functions/show_datetime_with_time_range.dart';
@@ -34,11 +31,11 @@ class ShowQuiz extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 foregroundColor: RGB.white,
-                title: Text("${'show_quiz'.tr} : ${Storage.quizId}"),
+                title: Text('show_quiz'.tr),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    Get.offAndToNamed("/teacher");
+                    Get.back();
                   },
                 ),
               ),
@@ -200,7 +197,9 @@ class ShowQuiz extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 backgroundColor: RGB.primary,
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed("/add-question");
+                },
                 label: Row(
                   children: [
                     Icon(Ionicons.add, color: RGB.white),

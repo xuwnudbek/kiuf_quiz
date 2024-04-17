@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AuthProvider extends ChangeNotifier {
   var userId = TextEditingController();
@@ -9,13 +12,13 @@ class AuthProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
+    log('User ID: ${userId.text}');
+    log('Password: ${password.text}');
     await Future.delayed(const Duration(seconds: 2));
-    print('User ID: ${userId.text}');
-    print('Password: ${password.text}');
 
     isLoading = false;
     notifyListeners();
 
-    // Get.offAndToNamed("/teacher");
+    Get.offAndToNamed("/teacher");
   }
 }

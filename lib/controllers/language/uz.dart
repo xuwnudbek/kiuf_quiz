@@ -15,6 +15,14 @@ Map<String, String> uz = {
 
   //Question
   "add_question": "Savol qo'shish",
+  "question_text": "Savol matni",
+  "true_answer": "To'g'ri javob",
+  "false_answer": "Noto'g'ri javob",
+  "add_answers": "Javob qo'shish",
+  "must_fill_old_question": "Avvalgi savolni to'ldirilmasdan yangi savol qo'shib bo'lmaydi!",
+  "error_while_add_new_question": "Yangi savol qo'shishda xatolik yuz berdi!",
+  "must_at_least_2_answers": "Kamida 2 javob bo'lishi kerak!",
+  "must_at_least_2_questions": "Kamida 2 savol bo'lishi kerak!",
 
   //basic
   "save": "Saqlash",
@@ -26,8 +34,8 @@ Map<String, String> uz = {
   "count_quiz": "Testlar soni",
   "subject": "Fan",
   "count": "Soni",
-  "open_quiz": "Ochiq testlar",
-  "closed_quiz": "Yopiq testlar",
+  "open_quiz": "Ochiq test",
+  "close_quiz": "Yopiq test",
   "count_all": "Jami testlar soni",
   "status_quiz": "Test holati",
   "add_quiz": "Test qo'shish",

@@ -13,14 +13,18 @@ class CustomInput extends StatefulWidget {
     this.bgColor,
     this.formatters,
     this.padding,
+    this.maxLines,
+    this.border,
     super.key,
   });
 
   final TextEditingController controller;
+  final Border? border;
   final IconData? prefixIcon;
   final Color? bgColor;
   final String? hintText;
   final bool obscureText;
+  final int? maxLines;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? formatters;
 
@@ -42,10 +46,11 @@ class _CustomInputState extends State<CustomInput> {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
-        border: Border.all(
-          color: RGB.white.withOpacity(.3),
-          width: 0.5,
-        ),
+        border: widget.border ??
+            Border.all(
+              color: RGB.white.withOpacity(.3),
+              width: 0.5,
+            ),
         color: widget.bgColor ?? RGB.white,
       ),
       padding: widget.padding ?? const EdgeInsets.all(0.0),
@@ -68,6 +73,7 @@ class _CustomInputState extends State<CustomInput> {
                   color: Colors.black26,
                 ),
               ),
+              maxLines: widget.maxLines,
             ),
           ),
           const SizedBox(width: 12.0),

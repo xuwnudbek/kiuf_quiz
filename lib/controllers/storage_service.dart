@@ -4,14 +4,14 @@ class Storage {
   static GetStorage box = GetStorage("kiuf_quiz");
 
   //quiz_id
-  static int quizId = box.read("quiz_id");
+  static int? quizId = box.read("quiz_id");
   static setQuizId(int id) {
     quizId = id;
     box.write("quiz_id", id);
   }
 
   //question_id
-  static int questionId = box.read("question_id");
+  static int? questionId = box.read("question_id");
   static setQuestionId(int id) {
     questionId = id;
     box.write("question_id", id);
