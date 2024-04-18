@@ -13,7 +13,9 @@ class CustomInput extends StatefulWidget {
     this.bgColor,
     this.formatters,
     this.padding,
+    this.style,
     this.maxLines,
+    this.textAlign,
     this.border,
     super.key,
   });
@@ -24,6 +26,8 @@ class CustomInput extends StatefulWidget {
   final Color? bgColor;
   final String? hintText;
   final bool obscureText;
+  final TextAlign? textAlign;
+  final TextStyle? style;
   final int? maxLines;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? formatters;
@@ -73,6 +77,8 @@ class _CustomInputState extends State<CustomInput> {
                   color: Colors.black26,
                 ),
               ),
+              style: widget.style ?? Get.textTheme.bodyMedium,
+              textAlign: widget.textAlign ?? TextAlign.start,
               maxLines: widget.maxLines,
             ),
           ),

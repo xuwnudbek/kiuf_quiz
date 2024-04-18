@@ -3,6 +3,20 @@ import 'package:get_storage/get_storage.dart';
 class Storage {
   static GetStorage box = GetStorage("kiuf_quiz");
 
+  //auth user
+  static Map user = box.read('user');
+  static setUser(user) {
+    user = user;
+    box.write('user', user);
+  }
+
+  //auth token
+  static Map token = box.read('token');
+  static setToken(token) {
+    token = token;
+    box.write('token', token);
+  }
+
   //quiz_id
   static int? quizId = box.read("quiz_id");
   static setQuizId(int id) {

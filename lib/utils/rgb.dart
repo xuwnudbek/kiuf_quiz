@@ -5,7 +5,7 @@ class RGB {
   static Color primaryLight = const Color(0x55072e7e);
   static Color secondary = const Color(0xFF7bb6b3);
   static Color lightYellow = const Color(0xFFfff7d6);
-  static Color warning = Color.fromARGB(255, 213, 171, 0);
+  static Color warning = const Color.fromARGB(255, 213, 171, 0);
 
   static Color white = const Color(0xFFffffff);
   static Color black = const Color(0xFF000000);

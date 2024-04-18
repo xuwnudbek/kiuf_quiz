@@ -33,6 +33,8 @@ Map<String, String> uz = {
   "copied": "Nusxalandi",
   "count_quiz": "Testlar soni",
   "subject": "Fan",
+  "subjects": "Fanlar",
+  "no_any_subject": "Hozircha hech qanday fan yo'q",
   "count": "Soni",
   "open_quiz": "Ochiq test",
   "close_quiz": "Yopiq test",
@@ -41,6 +43,9 @@ Map<String, String> uz = {
   "add_quiz": "Test qo'shish",
   "edit_quiz": "Testni tahrirlash",
   "delete_quiz": "Testni o'chirish",
+  "enter_quiz_id": "Test ID sini kiriting",
+  "must_fill_quiz_id": "Test ID sini to'ldirish shart!",
+  "start_quiz": "Testni boshlash",
   "add": "Qo'shish",
   "edit": "Tahrirlash",
   "title_quiz": "Test nomi",
@@ -50,4 +55,7 @@ Map<String, String> uz = {
   "from_time_must_be_less_than_to_time": "Boshlang'ich vaqt tugash vaqtidan kichik bo'lishi kerak",
   "tests": "Savollar",
   "add_new_test": "Yangi savol qo'shish",
+
+  "prev": "Avvalgisi",
+  "next": "Keyingisi",
 };

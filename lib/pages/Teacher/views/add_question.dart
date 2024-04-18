@@ -1,10 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kiuf_quiz/models/answer.dart';
 import 'package:kiuf_quiz/models/question.dart';
 import 'package:kiuf_quiz/providers/teacher/question_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
@@ -179,7 +175,6 @@ class CustomQuestionWidget extends StatelessWidget {
                             value: question.type == QuestionType.close,
                             activeColor: RGB.primary,
                             onChanged: (value) {
-                              print(value);
                               question.setType(QuestionType.values[value! ? 1 : 0]);
                               provider.reload();
                             },

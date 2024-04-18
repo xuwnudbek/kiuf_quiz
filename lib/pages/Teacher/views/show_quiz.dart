@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kiuf_quiz/controllers/storage_service.dart';
 import 'package:kiuf_quiz/providers/teacher/quiz_provider.dart';
 import 'package:kiuf_quiz/providers/teacher/show_quiz_provider.dart';
 import 'package:kiuf_quiz/utils/extensions/datetime.dart';
@@ -231,11 +230,11 @@ class CustomOpenQuizWidget extends StatelessWidget {
   });
 
   final Map data;
-  int index;
-  bool isOpen;
-  bool hasUnderline;
+  final int index;
+  final bool isOpen;
+  final bool hasUnderline;
 
-  var alphabet = ["A", "B", "C", "D", "E", "F"];
+  final alphabet = ["A", "B", "C", "D", "E", "F"];
 
   @override
   Widget build(BuildContext context) {
@@ -328,7 +327,7 @@ class CustomOpenQuizWidget extends StatelessWidget {
                                         alphabet[index],
                                         style: Get.textTheme.titleMedium,
                                       ),
-                                      SizedBox.square(
+                                      const SizedBox.square(
                                         dimension: 30,
                                       ),
                                     ],

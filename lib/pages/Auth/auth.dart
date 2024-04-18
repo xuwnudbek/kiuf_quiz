@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/providers/auth/auth_provider.dart';
@@ -73,6 +71,7 @@ class AuthPage extends StatelessWidget {
                               prefixIcon: Ionicons.lock_closed_outline,
                               hintText: "password".tr,
                               obscureText: true,
+                              maxLines: 1,
                             ),
                             const SizedBox(height: 24.0),
                             CustomButton(

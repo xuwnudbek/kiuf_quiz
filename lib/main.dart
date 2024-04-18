@@ -25,9 +25,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      title: "KIUF ${'quiz'.tr}",
       debugShowCheckedModeBanner: false,
       routes: PageRoutes.routes,
-      initialRoute: "/teacher",
+      initialRoute: "/auth",
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

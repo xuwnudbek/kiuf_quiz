@@ -26,6 +26,12 @@ class AddQuiz extends StatelessWidget {
               appBar: AppBar(
                 foregroundColor: RGB.white,
                 title: Text('add_quiz'.tr),
+                leading: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
               ),
               body: Center(
                 child: Container(

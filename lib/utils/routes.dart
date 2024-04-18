@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kiuf_quiz/pages/Auth/auth.dart';
 import 'package:kiuf_quiz/pages/Splash/splash_page.dart';
 import 'package:kiuf_quiz/pages/Student/student.dart';
+import 'package:kiuf_quiz/pages/Student/views/quiz.dart';
 import 'package:kiuf_quiz/pages/Teacher/teacher.dart';
 import 'package:kiuf_quiz/pages/Teacher/views/add_question.dart';
 import 'package:kiuf_quiz/pages/Teacher/views/add_quiz.dart';
@@ -22,5 +23,6 @@ class PageRoutes {
 
     //Student
     '/student': (ctx) => const StudentPage(),
+    '/quiz': (ctx) => const QuizPage(),
   };
 }
