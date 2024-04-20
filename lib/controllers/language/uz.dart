@@ -19,11 +19,11 @@ Map<String, String> uz = {
   "true_answer": "To'g'ri javob",
   "false_answer": "Noto'g'ri javob",
   "add_answers": "Javob qo'shish",
-  "must_fill_old_question": "Avvalgi savolni to'ldirilmasdan yangi savol qo'shib bo'lmaydi!",
-  "error_while_add_new_question": "Yangi savol qo'shishda xatolik yuz berdi!",
-  "must_at_least_2_answers": "Kamida 2 javob bo'lishi kerak!",
-  "must_at_least_2_questions": "Kamida 2 savol bo'lishi kerak!",
-
+  "must_at_least_2_answers": "Kamida 2 ta javob bo'lishi kerak!",
+  "must_at_least_1_questions": "Kamida 1 ta savol bo'lishi kerak!",
+  "question_cannot_be_empty": "Savol bo'sh bo'lishi mumkin emas!",
+  "all_answers_must_be_filled": "Hamma javoblar to'ldirilgan bo'lishi shart!",
+  "delete": "O'chirish",
   //basic
   "save": "Saqlash",
   "cancel": "Bekor qilish",
@@ -35,7 +35,10 @@ Map<String, String> uz = {
   "subject": "Fan",
   "subjects": "Fanlar",
   "no_any_subject": "Hozircha hech qanday fan yo'q",
+  "no_tests": "Hozircha hech qanday test yo'q",
+  "no_questions": "Hozircha hech qanday savol yo'q",
   "count": "Soni",
+  "counter": "ta",
   "open_quiz": "Ochiq test",
   "close_quiz": "Yopiq test",
   "count_all": "Jami testlar soni",
@@ -55,7 +58,9 @@ Map<String, String> uz = {
   "from_time_must_be_less_than_to_time": "Boshlang'ich vaqt tugash vaqtidan kichik bo'lishi kerak",
   "tests": "Savollar",
   "add_new_test": "Yangi savol qo'shish",
+  "type_quiz": "Test turi",
 
   "prev": "Avvalgisi",
   "next": "Keyingisi",
+  "course": "kurs",
 };

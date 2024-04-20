@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:kiuf_quiz/controllers/storage_service.dart';
+import 'package:kiuf_quiz/pages/Teacher/widgets/custom_quiz_widget.dart';
 import 'package:kiuf_quiz/providers/teacher/quiz_provider.dart';
 import 'package:kiuf_quiz/providers/teacher/show_quiz_provider.dart';
 import 'package:kiuf_quiz/utils/extensions/datetime.dart';
@@ -10,6 +12,7 @@ import 'package:kiuf_quiz/utils/extensions/time_of_day.dart';
 import 'package:kiuf_quiz/utils/functions/show_datetime_with_time_range.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_dropdown.dart';
+import 'package:kiuf_quiz/utils/widgets/custom_loading_widget.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
 import 'package:kiuf_quiz/utils/widgets/image.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +68,7 @@ class ShowQuiz extends StatelessWidget {
                             const SizedBox(height: 16.0),
                             CustomDropdown(
                               size: const Size(double.infinity, 50.0),
-                              data: qProvider.departmentList,
+                              data: qProvider.departments,
                               fillColor: RGB.white,
                               // hintText: 'select_department'.tr,
                               onChange: (value) {
@@ -76,7 +79,7 @@ class ShowQuiz extends StatelessWidget {
                             CustomDropdown(
                               size: const Size(double.infinity, 50.0),
                               fillColor: RGB.white,
-                              data: qProvider.courseList,
+                              data: qProvider.courses,
                               hintText: 'select_course'.tr,
                               onChange: (value) {
                                 qProvider.setCourse(value);
@@ -86,7 +89,7 @@ class ShowQuiz extends StatelessWidget {
                             CustomDropdown(
                               size: const Size(double.infinity, 50.0),
                               fillColor: RGB.white,
-                              data: qProvider.typeList,
+                              data: qProvider.types,
                               hintText: 'select_type'.tr,
                               onChange: (value) {
                                 qProvider.setType(value);
@@ -96,7 +99,7 @@ class ShowQuiz extends StatelessWidget {
                             CustomDropdown(
                               size: const Size(double.infinity, 50.0),
                               fillColor: RGB.white,
-                              data: qProvider.subjectList,
+                              data: qProvider.subjects,
                               hintText: 'select_subject'.tr,
                               onChange: (value) {
                                 qProvider.setSubject(value);
@@ -123,9 +126,6 @@ class ShowQuiz extends StatelessWidget {
                                 );
                                 if (res != null) {
                                   qProvider.setDateWithTime(res);
-                                  log(res.toString());
-                                } else {
-                                  log('res is null');
                                 }
                               },
                             ),
@@ -149,43 +149,50 @@ class ShowQuiz extends StatelessWidget {
                     // Show QUIZ's questions
                     Flexible(
                       flex: 6,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          // color: RGB.blueLight,
-                          borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
-                        ),
-                        padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "tests".tr,
-                                  style: const TextStyle(
-                                    fontSize: 36,
+                      child: sProvider.isLoading
+                          ? Center(
+                              child: CustomLoadingWidget(),
+                            )
+                          : Container(
+                              decoration: const BoxDecoration(
+                                // color: RGB.blueLight,
+                                borderRadius: BorderRadius.vertical(top: Radius.circular(8.0)),
+                              ),
+                              padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "tests".tr,
+                                        style: const TextStyle(fontSize: 36),
+                                      ),
+                                    ],
                                   ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 16.0),
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: 10,
-                                padding: const EdgeInsets.only(bottom: 16.0),
-                                itemBuilder: (ctx, index) {
-                                  return CustomOpenQuizWidget(
-                                    data: const {},
-                                    index: ++index,
-                                    isOpen: index < 7,
-                                    hasUnderline: index == 1 ? false : true,
-                                  );
-                                },
+                                  const SizedBox(height: 16.0),
+                                  Expanded(
+                                    child: sProvider.questions.isEmpty
+                                        ? Center(
+                                            child: Text(
+                                              "no_tests".tr,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: RGB.grey,
+                                              ),
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            itemCount: sProvider.questions.length,
+                                            padding: const EdgeInsets.only(bottom: 16.0),
+                                            itemBuilder: (ctx, index) {
+                                              return CustomQuizWidget(index: index);
+                                            },
+                                          ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -196,8 +203,11 @@ class ShowQuiz extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12.0),
                 ),
                 backgroundColor: RGB.primary,
-                onPressed: () {
-                  Get.toNamed("/add-question");
+                onPressed: () async {
+                  var res = await Get.toNamed("/add-question");
+                  if (res == true) {
+                    sProvider.initialize();
+                  }
                 },
                 label: Row(
                   children: [
@@ -216,139 +226,6 @@ class ShowQuiz extends StatelessWidget {
           },
         );
       },
-    );
-  }
-}
-
-class CustomOpenQuizWidget extends StatelessWidget {
-  CustomOpenQuizWidget({
-    required this.data,
-    required this.isOpen,
-    required this.hasUnderline,
-    this.index = 0,
-    super.key,
-  });
-
-  final Map data;
-  final int index;
-  final bool isOpen;
-  final bool hasUnderline;
-
-  final alphabet = ["A", "B", "C", "D", "E", "F"];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        // color: RGB.blueLight,
-        borderRadius: BorderRadius.circular(12.0),
-      ),
-      margin: const EdgeInsets.only(left: 20, bottom: 16.0),
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          hasUnderline ? const Divider() : const SizedBox.shrink(),
-          const SizedBox(height: 16.0),
-          SizedBox(
-            child: Text.rich(
-              TextSpan(text: "$index. ", children: [
-                TextSpan(
-                  text: "In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
-                  style: Get.textTheme.titleMedium,
-                ),
-              ]),
-              style: Get.textTheme.titleLarge,
-              selectionColor: Colors.orange,
-            ),
-          ),
-
-          //Answers
-          !isOpen
-              ? const SizedBox.shrink()
-              : Column(
-                  children: [
-                    const SizedBox(height: 16.0),
-                    Flex(
-                      direction: Axis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ...[0, null, 1].map((index) {
-                          if (index == null) return const SizedBox(width: 8.0);
-                          return Flexible(
-                            child: Text.rich(
-                              TextSpan(children: [
-                                WidgetSpan(
-                                  baseline: TextBaseline.alphabetic,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Text(
-                                        alphabet[index],
-                                        style: Get.textTheme.titleMedium,
-                                      ),
-                                      SizedBox.square(
-                                        dimension: 30,
-                                        child: index.isEven ? null : const IMAGE("circle_mark_2.png"),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
-                                  style: Get.textTheme.bodyMedium,
-                                ),
-                              ]),
-                              style: Get.textTheme.titleMedium,
-                              selectionColor: Colors.red,
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                    const SizedBox(height: 16.0),
-                    Flex(
-                      direction: Axis.horizontal,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ...[2, null, 3].map((index) {
-                          if (index == null) return const SizedBox(width: 8.0);
-
-                          return Flexible(
-                            child: Text.rich(
-                              TextSpan(children: [
-                                WidgetSpan(
-                                  baseline: TextBaseline.alphabetic,
-                                  child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Text(
-                                        alphabet[index],
-                                        style: Get.textTheme.titleMedium,
-                                      ),
-                                      const SizedBox.square(
-                                        dimension: 30,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: " In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
-                                  style: Get.textTheme.bodyMedium,
-                                ),
-                              ]),
-                              style: Get.textTheme.titleMedium,
-                              selectionColor: Colors.red,
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                  ],
-                ),
-        ],
-      ),
     );
   }
 }

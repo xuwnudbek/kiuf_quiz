@@ -4,16 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
+import 'package:kiuf_quiz/utils/extensions/string.dart';
+import 'package:kiuf_quiz/utils/functions/check_status.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
+import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
 
 class MainCard extends StatefulWidget {
   const MainCard(
     this.data, {
+    required this.index,
     super.key,
   });
 
   final Map data;
+  final int index;
 
   @override
   State<MainCard> createState() => _MainCardState();
@@ -34,11 +39,17 @@ class _MainCardState extends State<MainCard> {
     {"id": 3, "name": "Tugagan"},
   ];
 
-  late int index;
+  List typeQuiz = [
+    "Oraliq",
+    "Yakuniy",
+  ];
+
   @override
   void initState() {
+    setState(() {
+      widget.data['status'] = checkStatus(widget.data['start_time'].toString().toDateTime, widget.data['end_time'].toString().toDateTime);
+    });
     super.initState();
-    index = Random().nextInt(3);
   }
 
   @override
@@ -87,7 +98,7 @@ class _MainCardState extends State<MainCard> {
                 alignment: Alignment.center,
                 children: [
                   Text(
-                    "0123456789",
+                    "${widget.data["id"]}",
                     style: Get.textTheme.titleSmall!.copyWith(
                       color: RGB.primary,
                       fontWeight: FontWeight.w800,
@@ -102,7 +113,7 @@ class _MainCardState extends State<MainCard> {
                         color: RGB.primary,
                       ),
                       onPressed: () {
-                        copyToClipboard("1234567890");
+                        copyToClipboard(context, "${widget.data["id"]}");
                       },
                     ),
                   ),
@@ -111,7 +122,7 @@ class _MainCardState extends State<MainCard> {
             ),
             const SizedBox(height: 8.0),
             Text(
-              "#1 test",
+              "#${widget.index + 1} test",
               style: Get.textTheme.titleMedium!.copyWith(
                 color: RGB.primary,
                 fontWeight: FontWeight.w700,
@@ -140,7 +151,7 @@ class _MainCardState extends State<MainCard> {
                             ),
                           ),
                           TextSpan(
-                            text: "Matematika",
+                            text: "${widget.data['subject']}",
                             style: TextStyle(
                               color: RGB.primary,
                               fontWeight: FontWeight.w400,
@@ -161,7 +172,7 @@ class _MainCardState extends State<MainCard> {
                             ),
                           ),
                           TextSpan(
-                            text: "5 ta",
+                            text: "${(widget.data['questions'] ?? []).length} ${'counter'.tr}",
                             style: TextStyle(
                               color: RGB.primary,
                               fontWeight: FontWeight.w400,
@@ -182,7 +193,7 @@ class _MainCardState extends State<MainCard> {
                             ),
                           ),
                           TextSpan(
-                            text: "10 ta",
+                            text: "0 ${'counter'.tr}",
                             style: TextStyle(
                               color: RGB.primary,
                               fontWeight: FontWeight.w400,
@@ -196,14 +207,14 @@ class _MainCardState extends State<MainCard> {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: "${"closed_quiz".tr}: ",
+                            text: "${"close_quiz".tr}: ",
                             style: TextStyle(
                               color: RGB.primary,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
                           TextSpan(
-                            text: "5 ta",
+                            text: "0 ${'counter'.tr}",
                             style: TextStyle(
                               color: RGB.primary,
                               fontWeight: FontWeight.w400,
@@ -228,15 +239,15 @@ class _MainCardState extends State<MainCard> {
                               width: 16.0,
                               height: 16.0,
                               decoration: BoxDecoration(
-                                color: statusColors[index],
+                                color: statusColors[widget.data['status'] - 1],
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
                             const SizedBox(width: 4.0),
                             Text(
-                              statuses[index]["name"],
+                              statuses[widget.data['status'] - 1]["name"],
                               style: TextStyle(
-                                color: statusColors[index],
+                                color: statusColors[widget.data['status'] - 1],
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -245,6 +256,24 @@ class _MainCardState extends State<MainCard> {
                       ],
                     ),
                     const SizedBox(height: 4.0),
+                    Row(
+                      children: [
+                        Text(
+                          "${"type_quiz".tr}: ",
+                          style: TextStyle(
+                            color: RGB.primary,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        Text(
+                          typeQuiz[widget.data['type']],
+                          style: TextStyle(
+                            color: RGB.primary,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
+                    ),
                     const Spacer(),
                     //Edit button
                     CustomButton(
@@ -271,14 +300,22 @@ class _MainCardState extends State<MainCard> {
     );
   }
 
-  void copyToClipboard(String id) {
+  void copyToClipboard(ctx, String id) {
     Clipboard.setData(ClipboardData(text: id));
-    Get.closeAllSnackbars();
-    Get.showSnackbar(
-      GetSnackBar(
-        message: "${"copied".tr}: 1234567890",
-        duration: const Duration(seconds: 2),
-      ),
-    );
+    CustomSnackbars.success(ctx, "${"copied".tr}: $id");
   }
 }
+
+/* 
+  {
+    "id": 4669287011,
+    "department": "Mashinasozik kafedrasi",
+    "course": "3",
+    "user": "Xuwnudbek",
+    "subject": "Gidravlika",
+    "type": 0,
+    "start_time": "2024-04-19 08:30:00",
+    "end_time": "2024-04-19 09:20:00",
+    "questions": []
+  },
+*/

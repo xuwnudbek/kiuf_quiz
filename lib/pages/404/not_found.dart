@@ -26,7 +26,7 @@ class _NotFoundState extends State<NotFound> {
             const SizedBox(height: 16.0),
             TextButton(
               onPressed: () {
-                Get.offAndToNamed("/splash");
+                Get.offAllNamed("/splash");
               },
               child: Text(
                 "Back To Home",

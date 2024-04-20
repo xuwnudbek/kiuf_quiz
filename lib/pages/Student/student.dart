@@ -51,7 +51,7 @@ class StudentPage extends StatelessWidget {
                       PopupMenuItem(
                         value: "logout",
                         onTap: () {
-                          Get.offAndToNamed("/auth");
+                          Get.offAllNamed("/auth");
                         },
                         child: const Row(
                           children: [
@@ -69,7 +69,7 @@ class StudentPage extends StatelessWidget {
             ),
             body: Center(
               child: provider.isLoading
-                  ? const CustomLoadingWidget()
+                  ?  CustomLoadingWidget()
                   : provider.subjects.isEmpty
                       ? Text("no_any_subject".tr)
                       : Column(

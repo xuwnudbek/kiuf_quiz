@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kiuf_quiz/controllers/http_service.dart';
 import 'package:kiuf_quiz/models/question.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 
@@ -7,28 +8,44 @@ class QuestionProvider extends ChangeNotifier {
   var scrollController = ScrollController();
 
   // List of questions
-  final List<Question> questions = [
+  List<Question> questions = [
     Question(),
   ];
 
-  // QuestionProvider() {}
+  QuestionProvider();
 
+  //Work with API
+  bool isLoading = false;
+
+  //Add new question
   void addNewQuestion(BuildContext ctx) {
-    //Validate
-    var lastQuestion = questions.last;
-    if (lastQuestion.questionText.text.isEmpty) {
-      CustomSnackbars.warning(ctx, "must_fill_old_question".tr);
+    if (questions.last.question.text.isEmpty) {
+      CustomSnackbars.warning(ctx, "question_cannot_be_empty".tr);
       return;
     }
-    if (lastQuestion.type == QuestionType.open && lastQuestion.answers.where((element) => element.text.text.isEmpty).isNotEmpty) {
-      CustomSnackbars.error(ctx, "error_while_add_new_question".tr);
-      return;
+    if (!questions.last.isClose) {
+      if (questions.last.answers.length < 2) {
+        CustomSnackbars.warning(ctx, "must_at_least_2_answers".tr);
+        return;
+      }
+
+      if (questions.last.answers.any((element) => element.answer.text.isEmpty)) {
+        CustomSnackbars.warning(ctx, "all_answers_must_be_filled".tr);
+        return;
+      }
+
+      if (questions.last.answers.length < 2) {
+        CustomSnackbars.warning(ctx, "must_at_least_2_answers".tr);
+        return;
+      }
     }
 
     var question = Question();
-    questions.add(question);
 
-    //scroll to end
+    questions.add(question);
+    notifyListeners();
+
+    // //scroll to end
     scrollController.animateTo(
       scrollController.position.extentTotal,
       duration: const Duration(milliseconds: 600),
@@ -37,13 +54,10 @@ class QuestionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void reload() {
-    notifyListeners();
-  }
-
-  void removeQuestion(BuildContext ctx, Question question) {
+  //Remove question
+  void removeQuestion(BuildContext ctx, question) {
     if (questions.length == 1) {
-      CustomSnackbars.warning(ctx, "must_at_least_2_questions".tr);
+      CustomSnackbars.warning(ctx, "must_at_least_1_questions".tr);
       return;
     }
 
@@ -51,15 +65,29 @@ class QuestionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //Work with API
-  bool isLoading = false;
-  void saveQuestions() async {
+  //Save questions
+  int countOfCreatedQuestion = 0;
+  Future saveQuestions() async {
     isLoading = true;
     notifyListeners();
 
-    await Future.delayed(const Duration(seconds: 2));
+    for (var question in questions) {
+      question.answers.first.isTrue = 1;
+      await HttpServise.POST(
+        URL.questionCreate,
+        body: question.toJson(),
+      );
+      countOfCreatedQuestion += 1;
+      notifyListeners();
+    }
+    await Future.delayed(const Duration(milliseconds: 500));
+    Get.back(result: true);
 
     isLoading = false;
+    notifyListeners();
+  }
+
+  void reload() {
     notifyListeners();
   }
 }

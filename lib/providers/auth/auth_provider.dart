@@ -14,9 +14,6 @@ class AuthProvider extends ChangeNotifier {
     isLoading = true;
     notifyListeners();
 
-    log('User ID: ${userId.text}');
-    log('Password: ${password.text}');
-
     Map<String, String> body = {
       "loginId": userId.text,
       "password": password.text,
@@ -31,12 +28,12 @@ class AuthProvider extends ChangeNotifier {
       Storage.setUser(res.data['user']);
       Storage.setToken(res.data['token']);
 
-      Get.offAndToNamed("/teacher");
+      Get.offAllNamed("/teacher");
     }
 
     isLoading = false;
     notifyListeners();
 
-    // Get.offAndToNamed("/teacher");
+    // Get.offAllNamed("/teacher");
   }
 }

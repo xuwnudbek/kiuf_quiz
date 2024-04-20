@@ -14,7 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await GetStorage.init();
+  await GetStorage.init("kiuf_quiz");
 
   runApp(const MainApp());
 }
@@ -28,7 +28,7 @@ class MainApp extends StatelessWidget {
       title: "KIUF ${'quiz'.tr}",
       debugShowCheckedModeBanner: false,
       routes: PageRoutes.routes,
-      initialRoute: "/auth",
+      initialRoute: "/splash",
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

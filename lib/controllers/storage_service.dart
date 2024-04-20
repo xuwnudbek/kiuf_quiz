@@ -4,14 +4,14 @@ class Storage {
   static GetStorage box = GetStorage("kiuf_quiz");
 
   //auth user
-  static Map user = box.read('user');
+  static Map user = box.read('user') ?? {};
   static setUser(user) {
     user = user;
     box.write('user', user);
   }
 
   //auth token
-  static Map token = box.read('token');
+  static String token = box.read('token') ?? "";
   static setToken(token) {
     token = token;
     box.write('token', token);

@@ -67,7 +67,10 @@ class _CustomInputState extends State<CustomInput> {
           const SizedBox(width: 12.0),
           Expanded(
             child: TextFormField(
-              inputFormatters: widget.formatters ?? [],
+              inputFormatters: (widget.formatters ?? [])
+                ..add(
+                  LengthLimitingTextInputFormatter(255),
+                ),
               controller: widget.controller,
               obscureText: show ?? false,
               decoration: InputDecoration(
