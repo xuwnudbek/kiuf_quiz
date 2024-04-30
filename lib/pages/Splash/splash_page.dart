@@ -11,40 +11,47 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  double _opacity = 0;
+
   @override
   void initState() {
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _opacity = 1;
+      });
+    });
     super.initState();
-    checkAuth();
-  }
-
-  Future<void> checkAuth() async {
-    try {
-      await Future.delayed(const Duration(seconds: 2)); // 2-second delay
-      if (Storage.user.isNotEmpty && Storage.token.isNotEmpty) {
-        Get.offAllNamed("/teacher");
-      } else {
-        Get.offAllNamed("/auth");
-      }
-    } catch (error) {
-      // Handle errors here (e.g., navigate to a login screen)
-      print(error);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox.square(
-              dimension: 75.0,
-              child: CircularProgressIndicator(
-                color: RGB.primary,
+        child: AnimatedOpacity(
+          opacity: _opacity,
+          duration: const Duration(seconds: 2),
+          onEnd: () {
+            if (Storage.user.isNotEmpty && Storage.token.isNotEmpty) {
+              if (Storage.user['loginId'].toString().length == 8 || Storage.user['course'] == null) {
+                Get.offAllNamed("/teacher");
+              } else {
+                Get.offAllNamed("/student");
+              }
+            } else {
+              Get.offAllNamed("/auth");
+            }
+          },
+          child: Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              color: RGB.blueLight,
+              borderRadius: BorderRadius.circular(100),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/kiuf_logo.jpg"),
               ),
             ),
-          ],
+          ),
         ),
       ),
     );

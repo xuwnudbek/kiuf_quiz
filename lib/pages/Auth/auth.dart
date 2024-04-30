@@ -58,10 +58,10 @@ class AuthPage extends StatelessWidget {
                               controller: provider.userId,
                               bgColor: RGB.blueLight,
                               prefixIcon: Ionicons.key_outline,
-                              hintText: "user_id".tr,
+                              hintText: provider.isStudent ? "student_id".tr : "teacher_id".tr,
                               formatters: [
                                 FilteringTextInputFormatter.digitsOnly,
-                                LengthLimitingTextInputFormatter(10),
+                                LengthLimitingTextInputFormatter(provider.isStudent ? 10 : 8),
                               ],
                             ),
                             const SizedBox(height: 8.0),
@@ -72,6 +72,21 @@ class AuthPage extends StatelessWidget {
                               hintText: "password".tr,
                               obscureText: true,
                               maxLines: 1,
+                            ),
+                            const SizedBox(height: 8.0),
+                            Row(
+                              children: [
+                                Checkbox(
+                                  value: provider.isStudent,
+                                  activeColor: RGB.primary,
+                                  onChanged: (val) {
+                                    provider.toggleMode(val);
+                                  },
+                                ),
+                                Text(
+                                  provider.isStudent ? "i_am_student".tr : "i_am_teacher".tr,
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 24.0),
                             CustomButton(
@@ -104,7 +119,6 @@ class AuthPage extends StatelessWidget {
                       flex: 1,
                       child: Container(
                         decoration: const BoxDecoration(
-                          // color: RGB.middle,
                           borderRadius: BorderRadius.horizontal(right: Radius.circular(10)),
                           image: DecorationImage(
                             image: AssetImage('assets/images/kiuf.jpg'),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:kiuf_quiz/pages/404/not_found.dart';
 
@@ -42,6 +41,7 @@ class MainApp extends StatelessWidget {
       locale: const Locale('uz', 'UZ'),
       translations: Language(),
       theme: ThemeData(
+        useMaterial3: true,
         fontFamily: "Montserrat",
         textTheme: CustomThemeData.textTheme,
         appBarTheme: CustomThemeData.appBarTheme,

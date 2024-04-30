@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/controllers/http_service.dart';
@@ -10,10 +8,10 @@ class ShowQuizProvider extends ChangeNotifier {
   List questions = [];
 
   ShowQuizProvider() {
-    initialize();
+    init();
   }
 
-  void initialize() async {
+  void init() async {
     if (Storage.quizId == null) {
       Get.back();
     }

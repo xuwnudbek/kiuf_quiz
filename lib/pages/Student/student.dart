@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:kiuf_quiz/pages/Student/widgets/subject_card.dart';
+import 'package:kiuf_quiz/controllers/storage_service.dart';
+import 'package:kiuf_quiz/pages/Student/widgets/quiz_card.dart';
 import 'package:kiuf_quiz/providers/student/student_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_input.dart';
@@ -28,7 +28,7 @@ class StudentPage extends StatelessWidget {
               backgroundColor: RGB.primary,
               actions: [
                 Text(
-                  'Xushnudbek\nAbdusamatov',
+                  '${Storage.user['name']}',
                   textAlign: TextAlign.right,
                   style: Get.textTheme.bodyMedium!.copyWith(
                     color: RGB.white,
@@ -69,9 +69,21 @@ class StudentPage extends StatelessWidget {
             ),
             body: Center(
               child: provider.isLoading
-                  ?  CustomLoadingWidget()
-                  : provider.subjects.isEmpty
-                      ? Text("no_any_subject".tr)
+                  ? CustomLoadingWidget()
+                  : provider.studentQuizzes.isEmpty
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("no_any_quizzes".tr),
+                            const SizedBox(height: 16.0),
+                            IconButton(
+                              onPressed: () {
+                                provider.getQuizzes();
+                              },
+                              icon: const Icon(Icons.refresh_rounded, size: 28),
+                            )
+                          ],
+                        )
                       : Column(
                           children: [
                             const SizedBox(height: 16.0),
@@ -79,7 +91,7 @@ class StudentPage extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  "subjects".tr,
+                                  "quizzes".tr,
                                   style: const TextStyle(
                                     fontSize: 36,
                                   ),
@@ -95,111 +107,18 @@ class StudentPage extends StatelessWidget {
                               child: GridView.builder(
                                 shrinkWrap: true,
                                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 5,
+                                  crossAxisCount: 3,
                                   crossAxisSpacing: 16.0,
                                   mainAxisSpacing: 16.0,
-                                  childAspectRatio: 1.5,
+                                  childAspectRatio: 2,
                                 ),
-                                itemCount: provider.subjects.length,
+                                itemCount: provider.studentQuizzes.length,
                                 itemBuilder: (context, index) {
-                                  var subject = provider.subjects[index];
-                                  return SubjectCard(
-                                    subject,
+                                  var quiz = provider.studentQuizzes[index];
+                                  return QuizCard(
+                                    quiz: quiz,
                                     onPressed: () async {
-                                      provider.quizIdController.clear();
-                                      var res = await Get.defaultDialog(
-                                        title: "",
-                                        titleStyle: const TextStyle(fontSize: 0),
-                                        barrierDismissible: false,
-                                        backgroundColor: RGB.white,
-                                        radius: 10.0,
-                                        contentPadding: const EdgeInsets.only(
-                                          left: 24.0,
-                                          top: 12.0,
-                                          bottom: 16.0,
-                                          right: 24.0,
-                                        ),
-                                        content: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  "enter_quiz_id".tr,
-                                                  style: Get.textTheme.bodyMedium!.copyWith(
-                                                    fontSize: 20,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 4.0),
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  width: 200,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(4.0),
-                                                    color: RGB.primary.withOpacity(.2),
-                                                  ),
-                                                  child: Text(
-                                                    "${subject['name']} 88948979797889 9848498",
-                                                    style: Get.textTheme.bodyMedium!.copyWith(
-                                                      overflow: TextOverflow.clip,
-                                                      fontSize: 14,
-                                                      fontWeight: FontWeight.w700,
-                                                      color: RGB.black.withAlpha(150),
-                                                    ),
-                                                    maxLines: 1,
-                                                  ).paddingSymmetric(horizontal: 8.0, vertical: 4.0),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(height: 8.0),
-                                            CustomInput(
-                                              controller: provider.quizIdController,
-                                              formatters: [
-                                                FilteringTextInputFormatter.digitsOnly,
-                                                LengthLimitingTextInputFormatter(10),
-                                              ],
-                                              style: const TextStyle(
-                                                letterSpacing: 6.0,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                          ],
-                                        ),
-                                        actions: [
-                                          CustomButton(
-                                            title: Text("start_quiz".tr),
-                                            bgColor: RGB.primary,
-                                            onPressed: () {
-                                              if (provider.quizIdController.text.isEmpty || provider.quizIdController.text.length != 10) {
-                                                CustomSnackbars.error(context, "must_fill_quiz_id".tr);
-                                                return;
-                                              }
-                                              Get.back(result: true);
-                                            },
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              Get.back();
-                                            },
-                                            child: Text(
-                                              "cancel".tr,
-                                              style: Get.textTheme.bodyMedium!.copyWith(
-                                                color: RGB.primary,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                      if (res == null) return;
-                                      // start quiz
-                                      provider.startQuiz(
-                                        provider.quizIdController.text,
-                                        subject["id"],
-                                      );
+                                      //  provider.startQuiz();
                                     },
                                   );
                                 },

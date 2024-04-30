@@ -43,6 +43,7 @@ class StudentQuestionWidget extends StatelessWidget {
                     bgColor: RGB.blueLight.withAlpha(150),
                     padding: const EdgeInsets.all(8.0),
                     maxLines: 20,
+                    maxLength: 2000,
                   )
                 : Wrap(
                     children: List.generate(4, (index) {
@@ -110,7 +111,7 @@ class _AnswerTileState extends State<AnswerTile> {
               Expanded(
                 child: Text(
                   "In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
-                  style: Get.textTheme.bodyText1,
+                  style: Get.textTheme.bodyLarge,
                 ),
               ),
             ],

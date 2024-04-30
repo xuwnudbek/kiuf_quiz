@@ -9,6 +9,18 @@ class AuthProvider extends ChangeNotifier {
   var userId = TextEditingController();
   var password = TextEditingController();
 
+  bool isStudent = true;
+
+  void toggleMode(value) {
+    isStudent = value;
+    notifyListeners();
+  }
+
+  AuthProvider() {
+    Storage.remove("token");
+    Storage.remove("user");
+  }
+
   bool isLoading = false;
   Future<void> login() async {
     isLoading = true;
@@ -20,20 +32,24 @@ class AuthProvider extends ChangeNotifier {
     };
 
     var res = await HttpServise.POST(
-      URL.teacherLogin,
+      URL.login,
       body: body,
     );
 
     if (res.status == HttpResponses.success) {
+      log("auth: ${res.data}");
+
       Storage.setUser(res.data['user']);
       Storage.setToken(res.data['token']);
 
-      Get.offAllNamed("/teacher");
+      if (res.data['user']['loginId'].toString().length == 8 || res.data['user']['course'] == null) {
+        Get.offAllNamed("/teacher");
+      } else {
+        Get.offAllNamed("/student");
+      }
     }
 
     isLoading = false;
     notifyListeners();
-
-    // Get.offAllNamed("/teacher");
   }
 }

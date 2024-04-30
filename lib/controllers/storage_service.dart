@@ -5,15 +5,15 @@ class Storage {
 
   //auth user
   static Map user = box.read('user') ?? {};
-  static setUser(user) {
-    user = user;
+  static setUser(value) {
+    user = value;
     box.write('user', user);
   }
 
   //auth token
   static String token = box.read('token') ?? "";
-  static setToken(token) {
-    token = token;
+  static setToken(value) {
+    token = value;
     box.write('token', token);
   }
 
@@ -31,16 +31,6 @@ class Storage {
     box.write("question_id", id);
   }
 
-  // Write data to storage
-  static void write(String key, dynamic value) {
-    box.write(key, value);
-  }
-
-  // Read data from storage
-  static dynamic read(String key) {
-    return box.read(key);
-  }
-
   // Remove data from storage
   static void remove(String key) {
     box.remove(key);
@@ -54,5 +44,9 @@ class Storage {
   // Check if data exists in storage
   static bool hasData(String key) {
     return box.hasData(key);
+  }
+
+  static void save() {
+    box.save();
   }
 }

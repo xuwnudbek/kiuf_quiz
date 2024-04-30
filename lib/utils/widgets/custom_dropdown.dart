@@ -10,12 +10,15 @@ class CustomDropdown extends StatefulWidget {
     this.onChange,
     this.size = const Size(250.0, 50.0),
     this.fillColor,
+    this.initialValue,
     this.disabled = false,
     super.key,
   });
 
   final List data;
+
   final Size size;
+  final dynamic initialValue;
   final bool disabled;
   final String hintText;
   final Color? fillColor;
@@ -26,10 +29,23 @@ class CustomDropdown extends StatefulWidget {
 }
 
 class _CustomDropdownState extends State<CustomDropdown> {
-  int selectedItemIndex = null.hashCode;
+  var selectedItemIndex = null.hashCode;
+
+  void onPressed(code) {
+    if (widget.onChange == null) return;
+    var res = widget.data.firstWhere((element) => element.hashCode == code);
+    widget.onChange!(res);
+    setState(() {
+      selectedItemIndex = code ?? 0;
+    });
+  }
 
   @override
   void initState() {
+    if (widget.initialValue != null) {
+      onPressed(widget.initialValue.hashCode);
+    }
+    // selectedItemIndex = widget.initialValue.hashCode;
     super.initState();
   }
 
@@ -47,71 +63,54 @@ class _CustomDropdownState extends State<CustomDropdown> {
         ),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: widget.disabled
-          ? Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    widget.hintText,
-                    style: Get.textTheme.bodyMedium,
-                  ),
-                  const Icon(Icons.arrow_drop_down),
-                ],
-              ),
-            )
-          : DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                buttonStyleData: const ButtonStyleData(
-                  overlayColor: MaterialStatePropertyAll(Colors.transparent),
-                  height: 50,
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton2(
+          buttonStyleData: const ButtonStyleData(
+            overlayColor: MaterialStatePropertyAll(Colors.transparent),
+            height: 50,
+          ),
+          style: Get.textTheme.bodyMedium,
+          dropdownStyleData: DropdownStyleData(
+            elevation: 0,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4.0),
+              boxShadow: [
+                BoxShadow(
+                  color: RGB.black.withOpacity(.2),
+                  blurRadius: 8.0,
+                  offset: const Offset(2, 4),
                 ),
-                style: Get.textTheme.bodyMedium,
-                dropdownStyleData: DropdownStyleData(
-                  elevation: 0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: RGB.black.withOpacity(.2),
-                        blurRadius: 8.0,
-                        offset: const Offset(2, 4),
-                      ),
-                    ],
-                  ),
-                ),
-                isExpanded: true,
-                value: selectedItemIndex,
-                items: [
-                  DropdownMenuItem(
-                    value: null.hashCode,
-                    enabled: false,
-                    child: Text(
-                      widget.hintText,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  ...widget.data.map((value) {
-                    return DropdownMenuItem(
-                      value: value.hashCode,
-                      child: Text(
-                        value['name'],
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    );
-                  }),
-                ],
-                onChanged: (code) {
-                  if (widget.onChange == null) return;
-                  var res = widget.data.firstWhere((element) => element.hashCode == code);
-                  widget.onChange!(res);
-                  setState(() {
-                    selectedItemIndex = code ?? 0;
-                  });
-                },
+              ],
+            ),
+          ),
+          isExpanded: true,
+          value: selectedItemIndex,
+          items: [
+            DropdownMenuItem(
+              value: null.hashCode,
+              enabled: false,
+              child: Text(
+                widget.hintText,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
+            ...widget.data.map((value) {
+              return DropdownMenuItem(
+                value: value.hashCode,
+                child: Text(
+                  value['name'],
+                  overflow: TextOverflow.ellipsis,
+                ),
+              );
+            }),
+          ],
+          onChanged: (code) {
+            onPressed(code);
+          },
+        ),
+      ),
     );
   }
 }
+
+class CustomDropdownProvider extends ChangeNotifier {}

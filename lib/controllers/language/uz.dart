@@ -1,10 +1,18 @@
 Map<String, String> uz = {
   "quiz": "Test",
+  "quizzes": "Testlar",
+  'yes': "Ha",
+  'no': "Yo`q",
 
   //Auth
   "login": "Kirish",
-  "user_id": "ID",
+  "student_id": "Student ID",
+  "teacher_id": "Teacher ID",
+
   "password": "Parol",
+  "logout": "Chiqish",
+  "i_am_student": "Men o'quvchiman",
+  "i_am_teacher": "Men o'qituvchiman",
 
   //Teacher
   "select_subject": "Fanni tanlang",
@@ -34,7 +42,7 @@ Map<String, String> uz = {
   "count_quiz": "Testlar soni",
   "subject": "Fan",
   "subjects": "Fanlar",
-  "no_any_subject": "Hozircha hech qanday fan yo'q",
+  "no_any_quizzes": "Hozircha hech qanday test yo'q",
   "no_tests": "Hozircha hech qanday test yo'q",
   "no_questions": "Hozircha hech qanday savol yo'q",
   "count": "Soni",
@@ -57,10 +65,16 @@ Map<String, String> uz = {
   "choose_quiz_time": "Test vaqtini tanlang",
   "from_time_must_be_less_than_to_time": "Boshlang'ich vaqt tugash vaqtidan kichik bo'lishi kerak",
   "tests": "Savollar",
-  "add_new_test": "Yangi savol qo'shish",
   "type_quiz": "Test turi",
-
+  "add_new_test": "Yangi savol qo'shish",
+  "quiz_successfully_updated": "Test muvaffaqiyatli yangilandi",
+  "check_results": "Natijalarni tekshirish",
+  "student_id_cannot_be_empty": "Student ID bo'sh bo'lmasligi kerak!",
+  "select_student": "Studentni tanlang",
+  "if_you_want_to_see_results_select_student": "Natijalarni ko'rish uchun studentni tanlang",
   "prev": "Avvalgisi",
   "next": "Keyingisi",
   "course": "kurs",
+  "really_want_to_start_this_quiz": "Rostan ham bu testni boshlamoqchimisiz?",
+  "there_is_no_any_question": "Birorta ham savol yo`q",
 };

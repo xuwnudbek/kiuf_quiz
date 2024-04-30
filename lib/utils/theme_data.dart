@@ -30,9 +30,6 @@ class CustomThemeData {
   static AppBarTheme appBarTheme = AppBarTheme(
     toolbarHeight: 70,
     backgroundColor: RGB.primary,
-    titleTextStyle: const TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.w600,
-    ),
+    foregroundColor: RGB.white,
   );
 }

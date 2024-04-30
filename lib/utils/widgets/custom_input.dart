@@ -15,6 +15,7 @@ class CustomInput extends StatefulWidget {
     this.padding,
     this.style,
     this.maxLines,
+    this.maxLength,
     this.textAlign,
     this.border,
     super.key,
@@ -29,6 +30,7 @@ class CustomInput extends StatefulWidget {
   final TextAlign? textAlign;
   final TextStyle? style;
   final int? maxLines;
+  final int? maxLength;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? formatters;
 
@@ -69,7 +71,7 @@ class _CustomInputState extends State<CustomInput> {
             child: TextFormField(
               inputFormatters: (widget.formatters ?? [])
                 ..add(
-                  LengthLimitingTextInputFormatter(255),
+                  LengthLimitingTextInputFormatter(widget.maxLength ?? 255),
                 ),
               controller: widget.controller,
               obscureText: show ?? false,

@@ -10,14 +10,9 @@ import 'package:kiuf_quiz/utils/widgets/main_card.dart';
 import 'package:provider/provider.dart';
 import 'package:kiuf_quiz/providers/teacher/teacher_provider.dart';
 
-class TeacherPage extends StatefulWidget {
+class TeacherPage extends StatelessWidget {
   const TeacherPage({super.key});
 
-  @override
-  State<TeacherPage> createState() => _TeacherPageState();
-}
-
-class _TeacherPageState extends State<TeacherPage> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<TeacherProvider>(
@@ -57,11 +52,11 @@ class _TeacherPageState extends State<TeacherPage> with SingleTickerProviderStat
                           Storage.clear();
                           Get.offAllNamed("/auth");
                         },
-                        child: const Row(
+                        child: Row(
                           children: [
-                            Icon(Ionicons.log_out_outline),
-                            SizedBox(width: 8.0),
-                            Text("Profile"),
+                            const Icon(Ionicons.log_out_outline),
+                            const SizedBox(width: 8.0),
+                            Text("logout".tr),
                           ],
                         ),
                       ),
@@ -126,24 +121,12 @@ class _TeacherPageState extends State<TeacherPage> with SingleTickerProviderStat
                           provider.clear();
                         },
                       ),
-                      const Spacer(),
-                      CustomButton(
-                        title: Text("add_quiz".tr),
-                        bgColor: RGB.primary,
-                        onPressed: () async {
-                          var res = await Get.toNamed("/add-quiz");
-                          print(res);
-                          if (res == true) {
-                            provider.init();
-                          }
-                        },
-                      ),
                     ],
                   ),
                   const SizedBox(height: 24.0),
                   Expanded(
                     child: provider.isLoading
-                        ?  Center(
+                        ? Center(
                             child: CustomLoadingWidget(),
                           )
                         : Padding(
@@ -165,6 +148,31 @@ class _TeacherPageState extends State<TeacherPage> with SingleTickerProviderStat
                               ),
                             ),
                           ),
+                  ),
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButton.extended(
+              backgroundColor: RGB.primary,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              onPressed: () async {
+                var res = await Get.toNamed("/add-quiz");
+                if (res == true) {
+                  provider.init();
+                }
+              },
+              label: Row(
+                children: [
+                  Icon(Icons.add, color: RGB.white),
+                  const SizedBox(width: 4.0),
+                  Text(
+                    "add_quiz".tr,
+                    style: TextStyle(
+                      color: RGB.white,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                 ],
               ),

@@ -1,0 +1,32 @@
+[
+    {
+        "teacher": {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiNmUyNjFkODJhODgxYTkzODYwZjVjMzMwNGIwODdkMTY0NzViYWI3ODViY2NkYThhN2U0YmUyOGY0MmY1ODk4ODBlZmQxOGE1NjIwYWUxZjAiLCJpYXQiOjE3MTQwNjQyNjkuODcyMTY1LCJuYmYiOjE3MTQwNjQyNjkuODcyMTczLCJleHAiOjE3NDU2MDAyNjkuODQ4NTA4LCJzdWIiOiI3Iiwic2NvcGVzIjpbXX0.K8pDK-iLrNgm7U7doyX7U9wRllLMkDcnbdLuS-3zYfMmLX7a7xDoiIypoXiAY12y7Otv6A19MObL2ZQ8X_2e2TgzVvh_UuFbkJalC1bryRZzhLY02mOCwl9ixueWfXZAA4tWRm5NZAexboEWIbcI5zq6FrCADTjvykFdOW2lQdIUWpVYIOPkPMKSbXisRKjGCS8ZKWJKGIVQA03U36fdW-Fh3ViQYusB4dEQDgP3I9MRm2rLwkt5zayR6YFTIJ_nBnT2hsfOTwYO0pX2HYa45leKnSmHNsG_3q-PALoGXW8MnSIJZbh2bPIury7I-NPm0VbvoVbMONLZlcHXgqJoEVG36NQ5LcriP_ZPNrCtieO94SQ4nXYCr5BtcaZ9DW_rTEsfWgBggBISi7dmIOqtXDJIfu-fKrmr7hPy92Nim8YB5ORIlfRx5QL7dPR44-hhhiugdA4Chq9LG1ZiseFBOGiBA5kpgjRkOqlHUV6XtmMmVKreBlXaNjntEQZ8g1dXjU94yENTXKXcSYm_k2cSFCj3N3paNGvxaF947ze_TgU9eWomDYfbmP4WIPlo77LFfLiioGqmw91GbVvfeXduMFrvRVjx_FoLgIul0ZcC_w-BftDq1CpHAQV2PGjW5AWyeNcR3q0O9eh5BuPD84IPWYS68gHKyT-Qj9Qq0e_aAyk",
+            "user": {
+                "id": 7,
+                "loginId": "12345678",
+                "name": "Xuwnudbek",
+                "phone": "+998902902614",
+                "password": "$2y$12$j7E6MaIp24vUqLjhaS985Oh2OmExlNc.flpzfz.eUGLz8vk1znAiq",
+                "image": "default.jpg",
+                "created_at": "2024-04-18T12:44:41.000000Z",
+                "updated_at": "2024-04-18T12:44:41.000000Z",
+                "course": null
+            }
+        },
+        "student": {
+            "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzIiwianRpIjoiY2Q1YTE0ZGFmZjM2MjBhZGZiYzc4NTExNDIxNjFlZjM5MGQzYzM3MDlhMjU3NjFmN2Q5YWIzMDVkOTNmODYxMzJmN2U0NTVjNzdhNTI0OGYiLCJpYXQiOjE3MTQwNjQ0NzUuNzQ4Nzk0LCJuYmYiOjE3MTQwNjQ0NzUuNzQ4Nzk2LCJleHAiOjE3NDU2MDA0NzUuNzQ1ODM1LCJzdWIiOiIxMSIsInNjb3BlcyI6W119.a007Iod5arZKBr-Iy2zzeFmyi43sJ1PlG_3Adl3Vq78IArKklWLvOMQ0M0fXgqN2vwieRZMpAGSqUF3h_rkzhSW77u7dFfzEamCMYE0Qq9F6lNVtHPRNhaAOy4xy0p8iR_cpnAFgThMgJkV2RhzPoevljwfQOYADnCCVY5sH9Oez5hgVhD1zXBABLSqV65gkDurC6MIzTY4IaBROR3s-cA00EvN6hHAZIfGk-fAZ9ppLc6EtNk19mRkcGcd5fi8pRq6PabrOze0bx12i8893z5T7Rj6xwUMY7ixu5xCHZ3_rzygGhmtg0ZUtIkYi4uCuhtGN-6FWOUEd1eZU_03I47uvRP7gXnwXdKZ8K2eFJ-TliP61Qd48l4Z-HXffGhV259aO3udEfigs_VEN87f9Mc6BYStHt_8sfzncv65pxQfUx9CadUKSyUQpw9fFrXMb9UdrJwnt1lo_f0jr5mzEuYayBlcoAOsDh6N2Fik2GtwtUoyN36RYMaACWVbOlGaTkcXaZUMdnhU64UfKQGhMq6w7g1UsIG33RfPsr4CklYxeiI2RBORuJKFUoKTxfaNpPqvy7iNbzb3TsG7EfB6GSxvoBvmxIyRZJRPASaeWBHTa1xv_-TBc41xthg4cy0jGSCtAmXqRsSly670d9wB6vjh0MreUT-7daK8mUIJN9eI",
+            "user": {
+                "id": 11,
+                "loginId": "2223141008",
+                "name": "Abdurazzaqov Bunyodbek Begijon o`g`li",
+                "phone": null,
+                "password": "$2y$12$VXjBjrat54DLEwNhXMTNoehFgZQ7BXjplVV8cCQPhljF.s.Tsn/O2",
+                "image": "default.jpg",
+                "created_at": "2024-04-25T16:28:58.000000Z",
+                "updated_at": "2024-04-25T16:28:58.000000Z",
+                "course": 2
+            }
+        }
+    }
+]
