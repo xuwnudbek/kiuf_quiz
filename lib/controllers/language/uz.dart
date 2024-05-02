@@ -3,11 +3,11 @@ Map<String, String> uz = {
   "quizzes": "Testlar",
   'yes': "Ha",
   'no': "Yo`q",
+  "ok": "Yaxshi",
 
   //Auth
   "login": "Kirish",
-  "student_id": "Student ID",
-  "teacher_id": "Teacher ID",
+  "id": "ID",
 
   "password": "Parol",
   "logout": "Chiqish",
@@ -35,6 +35,9 @@ Map<String, String> uz = {
   //basic
   "save": "Saqlash",
   "cancel": "Bekor qilish",
+  "start": "Boshlash",
+  "quit": "Chiqish",
+  "continue": "Davom etish",
   "from": "dan",
   "to": "gacha",
   "show_quiz": "Testni ko'rish",
@@ -76,5 +79,17 @@ Map<String, String> uz = {
   "next": "Keyingisi",
   "course": "kurs",
   "really_want_to_start_this_quiz": "Rostan ham bu testni boshlamoqchimisiz?",
+  "really_want_to_stop_this_quiz": "Rostan ham bu testni to'xtatmoqchimisiz?",
+  "really_want_to_finish_this_quiz": "Rostan ham bu testni yakunlashni xoxlaysizmi?",
+  "dont_calculate_without_answered_question": "Javob belgilanmagan savollar hisobga olinmaydi!", //
+  "quiz_successfully_finished": "Test muvaffaqiyatli yakunlandi!",
+  "quiz_error_with_finish": "Testni yakunlashda xatolik yuz berdi!",
+
   "there_is_no_any_question": "Birorta ham savol yo`q",
+  "you_cant_start_this_quiz": "Siz bu testni boshlay olmaysiz!",
+  "type_your_answer_here": "Javobingizni shu yerga kiriting",
+  "this_quiz_already_answered": "Bu test allaqachon topshirilgan!",
+  "quiz_time_is": "Test vaqti",
+
+  "finish": "Yakunlash",
 };

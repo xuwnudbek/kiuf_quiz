@@ -58,7 +58,7 @@ class AuthPage extends StatelessWidget {
                               controller: provider.userId,
                               bgColor: RGB.blueLight,
                               prefixIcon: Ionicons.key_outline,
-                              hintText: provider.isStudent ? "student_id".tr : "teacher_id".tr,
+                              hintText: "id".tr,
                               formatters: [
                                 FilteringTextInputFormatter.digitsOnly,
                                 LengthLimitingTextInputFormatter(provider.isStudent ? 10 : 8),
@@ -72,21 +72,6 @@ class AuthPage extends StatelessWidget {
                               hintText: "password".tr,
                               obscureText: true,
                               maxLines: 1,
-                            ),
-                            const SizedBox(height: 8.0),
-                            Row(
-                              children: [
-                                Checkbox(
-                                  value: provider.isStudent,
-                                  activeColor: RGB.primary,
-                                  onChanged: (val) {
-                                    provider.toggleMode(val);
-                                  },
-                                ),
-                                Text(
-                                  provider.isStudent ? "i_am_student".tr : "i_am_teacher".tr,
-                                ),
-                              ],
                             ),
                             const SizedBox(height: 24.0),
                             CustomButton(

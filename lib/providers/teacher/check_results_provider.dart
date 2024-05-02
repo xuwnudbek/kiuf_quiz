@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:get/utils.dart';
 import 'package:kiuf_quiz/controllers/http_service.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
-import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 
 class CheckResultsProvider extends ChangeNotifier {
   // Add your code here

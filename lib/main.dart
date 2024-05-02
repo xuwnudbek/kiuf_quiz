@@ -33,10 +33,9 @@ class MainApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      // ignore: prefer_const_literals_to_create_immutables
-      supportedLocales: <Locale>[
-        const Locale('uz', 'UZ'),
-        const Locale('en'),
+      supportedLocales: const <Locale>[
+        Locale('uz', 'UZ'),
+        Locale('en'),
       ],
       locale: const Locale('uz', 'UZ'),
       translations: Language(),
@@ -57,7 +56,6 @@ class MainApp extends StatelessWidget {
           page: () => const NotFound(),
         );
       },
-      // home: const AuthPage(),
     );
   }
 }

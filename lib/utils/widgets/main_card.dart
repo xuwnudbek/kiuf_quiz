@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
-import 'package:kiuf_quiz/pages/Teacher/views/check_results.dart';
 import 'package:kiuf_quiz/providers/teacher/teacher_provider.dart';
 import 'package:kiuf_quiz/utils/extensions/string.dart';
 import 'package:kiuf_quiz/utils/functions/check_status.dart';
@@ -11,7 +9,6 @@ import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_square.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
-import 'package:kiuf_quiz/utils/widgets/svg.dart';
 import 'package:provider/provider.dart';
 
 class MainCard extends StatefulWidget {
@@ -91,41 +88,6 @@ class _MainCardState extends State<MainCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: RGB.primaryLight.withOpacity(.1),
-                  borderRadius: BorderRadius.circular(14.0),
-                ),
-                margin: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Text(
-                      "${widget.data["id"]}",
-                      style: Get.textTheme.titleSmall!.copyWith(
-                        color: RGB.primary,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 1.2,
-                      ),
-                    ),
-                    Positioned(
-                      right: 6.0,
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.copy_all_rounded,
-                          color: RGB.primary,
-                        ),
-                        onPressed: () {
-                          copyToClipboard(context, "${widget.data["id"]}");
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 8.0),
               Text(
                 "#${widget.index + 1} test",
                 style: Get.textTheme.titleMedium!.copyWith(
@@ -133,7 +95,7 @@ class _MainCardState extends State<MainCard> {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              const SizedBox(height: 8.0),
+              const SizedBox(height: 16.0),
               Expanded(
                 child: Container(
                   width: double.infinity,
@@ -302,17 +264,20 @@ class _MainCardState extends State<MainCard> {
                             ),
                           ),
                           const SizedBox(width: 12.0),
-                          CustomSquareButton(
-                            child: Icon(
+                          IconButton(
+                            style: IconButton.styleFrom(
+                              backgroundColor: RGB.primary.withAlpha(25),
+                              highlightColor: RGB.primary.withAlpha(50),
+                              shape: const CircleBorder(),
+                            ),
+                            icon: Icon(
                               Icons.bar_chart_rounded,
                               color: RGB.primary,
                               size: 31,
                             ),
                             onPressed: () {
                               Storage.setQuizId(widget.data["id"]);
-                              Get.toNamed("/check-results")?.then((value) {
-                                provider.init();
-                              });
+                              Get.toNamed("/check-results");
                             },
                           ),
                         ],

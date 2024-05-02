@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/providers/student/quiz_provider.dart';
@@ -23,7 +25,8 @@ class _QuizIndicatorState extends State<QuizIndicator> {
   Widget build(BuildContext context) {
     return Consumer<QuizProvider>(builder: (context, provider, _) {
       var question = provider.questions[widget.index];
-      var hasSelectedAnswer = question['selected_answer'] != null;
+      bool selected = provider.checkQuestionSelection(question['id']);
+      bool isActive = provider.tabController.index == widget.index;
       return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: MouseRegion(
@@ -42,16 +45,23 @@ class _QuizIndicatorState extends State<QuizIndicator> {
               width: 60,
               height: 60,
               decoration: BoxDecoration(
-                color: hasSelectedAnswer || (isHover || provider.tabController.index == widget.index) ? RGB.primary : RGB.white,
+                color: isActive
+                    ? Colors.blue
+                    : (isHover || selected)
+                        ? RGB.primary
+                        : RGB.white,
                 shape: BoxShape.circle,
-                border: Border.all(color: RGB.primary, width: 2),
+                border: Border.all(
+                  color: isActive ? Colors.blue : RGB.primary,
+                  width: 2,
+                ),
               ),
               padding: const EdgeInsets.all(8.0),
               alignment: Alignment.center,
               child: Text(
                 "${widget.index + 1}",
                 style: Get.textTheme.titleSmall!.copyWith(
-                  color: (isHover || provider.tabController.index == widget.index) ? RGB.white : RGB.primary,
+                  color: isActive || (selected || isHover) ? RGB.white : RGB.primary,
                 ),
               ),
             ),

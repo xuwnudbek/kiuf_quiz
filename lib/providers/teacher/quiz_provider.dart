@@ -77,10 +77,10 @@ class QuizProvider extends ChangeNotifier {
       quiz = res.data;
     }
 
-    setDepartment(departments.firstWhereOrNull((element) => element['name'] == quiz['department']));
-    setCourse(courses.firstWhereOrNull((element) => element['name'].toString().contains(quiz['course'])));
-    setType(types.firstWhereOrNull((element) => element['id'] == quiz['type']));
-    setSubject(subjects.firstWhereOrNull((element) => element['name'] == quiz['subject']));
+    setDepartment(departments.firstWhere((element) => element['name'] == quiz['department'], orElse: () => {}));
+    setCourse(courses.firstWhere((element) => element['name'].toString().contains(quiz['course']), orElse: () => {}));
+    setType(types.firstWhere((element) => element['id'] == quiz['type'], orElse: () => {}));
+    setSubject(subjects.firstWhere((element) => element['name'] == quiz['subject'], orElse: () => {}));
     setDateWithTime(DateWithTime(
       quiz['start_time'].toString().toDateTime,
       TimeOfDay(

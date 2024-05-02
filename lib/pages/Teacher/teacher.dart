@@ -44,19 +44,27 @@ class TeacherPage extends StatelessWidget {
                     backgroundColor: RGB.white,
                     child: const Icon(Icons.person_rounded),
                   ),
+                  elevation: 5.0,
+                  surfaceTintColor: RGB.white,
+                  constraints: const BoxConstraints(
+                    maxWidth: 150,
+                    minWidth: 150,
+                  ),
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
                         value: "logout",
                         onTap: () {
-                          Storage.clear();
                           Get.offAllNamed("/auth");
                         },
-                        child: Row(
+                        child: const Row(
                           children: [
-                            const Icon(Ionicons.log_out_outline),
-                            const SizedBox(width: 8.0),
-                            Text("logout".tr),
+                            Icon(Ionicons.log_out_outline, color: Colors.red),
+                            SizedBox(width: 8.0),
+                            Text(
+                              "Profile",
+                              style: TextStyle(color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
@@ -138,7 +146,7 @@ class TeacherPage extends StatelessWidget {
                                   crossAxisCount: 5,
                                   crossAxisSpacing: 16.0,
                                   mainAxisSpacing: 16.0,
-                                  mainAxisExtent: 400.0,
+                                  mainAxisExtent: 350.0,
                                 ),
                                 itemCount: provider.filteredQuizzes.length,
                                 itemBuilder: (context, index) {

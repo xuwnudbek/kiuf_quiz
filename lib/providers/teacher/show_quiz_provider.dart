@@ -6,25 +6,16 @@ import 'package:kiuf_quiz/controllers/storage_service.dart';
 class ShowQuizProvider extends ChangeNotifier {
   Map quiz = {};
   List questions = [];
+  bool isLoading = false;
 
+  //Default Constructor
   ShowQuizProvider() {
     init();
   }
 
   void init() async {
-    if (Storage.quizId == null) {
-      Get.back();
-    }
-
+    if (Storage.quizId == null) Get.back();
     await getQuiz(Storage.quizId.toString());
-  }
-
-  bool isLoading = false;
-
-  Future deleteQuestion(quizId) async {
-    await HttpServise.POST(
-      "${URL.questionDelete}/$quizId",
-    );
   }
 
   Future getQuiz(String id) async {
@@ -40,6 +31,12 @@ class ShowQuizProvider extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  Future deleteQuestion(quizId) async {
+    await HttpServise.POST(
+      "${URL.questionDelete}/$quizId",
+    );
   }
 }
 

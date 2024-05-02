@@ -14,9 +14,9 @@ class CustomQuizWidget extends StatelessWidget {
   final Map question;
   final Function onPressed;
 
-  final alphabet = ["A", "B", "C", "D", "E", "F"];
+  final List alphabet = ["A", "B", "C", "D", "E", "F"];
 
-  String qavs = ")";
+  final String qavs = ")";
 
   @override
   Widget build(BuildContext context) {

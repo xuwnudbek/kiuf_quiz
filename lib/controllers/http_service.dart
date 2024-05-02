@@ -8,11 +8,11 @@ import 'package:http/http.dart' as http;
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 
 class URL {
-  static String domain = '192.168.9.50:8000';
+  static String domain = '172.16.91.50:8000';
 
   static String additional = "api";
-  static String teacher = '$additional/teacher';
   static String login = '$additional/login';
+  static String teacher = '$additional/teacher';
   static String teacherQuizzes = '$teacher/quizzes';
   static String teacherSubjects = '$additional/subjects';
   static String teacherDepartments = '$additional/departments';
@@ -25,6 +25,7 @@ class URL {
   static String questionDelete = '$additional/question/delete';
   static String studentQuestions = '$additional/student/answer/show';
   static String studentQuizzes = '$additional/student/quizze';
+  static String studentAnswers = '$additional/student/answer/create';
 
   static String subjectsAndDepartments = 'getdata';
 
@@ -73,8 +74,6 @@ class HttpServise {
         Storage.hasData('token'),
         {"Authorization": "Bearer ${Storage.token}"},
       );
-
-    inspect(headers);
 
     HttpResponse response;
     try {

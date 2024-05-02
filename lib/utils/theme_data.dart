@@ -31,5 +31,6 @@ class CustomThemeData {
     toolbarHeight: 70,
     backgroundColor: RGB.primary,
     foregroundColor: RGB.white,
+    titleTextStyle: textTheme.titleLarge!.copyWith(color: RGB.white),
   );
 }

@@ -6,7 +6,7 @@ import 'package:kiuf_quiz/utils/rgb.dart';
 
 class CustomInput extends StatefulWidget {
   const CustomInput({
-    required this.controller,
+    this.controller,
     this.prefixIcon,
     this.hintText,
     this.obscureText = false,
@@ -14,6 +14,7 @@ class CustomInput extends StatefulWidget {
     this.formatters,
     this.padding,
     this.style,
+    this.onChanged,
     this.maxLines,
     this.maxLength,
     this.textAlign,
@@ -21,7 +22,7 @@ class CustomInput extends StatefulWidget {
     super.key,
   });
 
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final Border? border;
   final IconData? prefixIcon;
   final Color? bgColor;
@@ -31,6 +32,7 @@ class CustomInput extends StatefulWidget {
   final TextStyle? style;
   final int? maxLines;
   final int? maxLength;
+  final Function? onChanged;
   final EdgeInsets? padding;
   final List<TextInputFormatter>? formatters;
 
@@ -74,6 +76,11 @@ class _CustomInputState extends State<CustomInput> {
                   LengthLimitingTextInputFormatter(widget.maxLength ?? 255),
                 ),
               controller: widget.controller,
+              onChanged: (value) {
+                if (widget.onChanged != null) {
+                  widget.onChanged!(value);
+                }
+              },
               obscureText: show ?? false,
               decoration: InputDecoration(
                 border: InputBorder.none,

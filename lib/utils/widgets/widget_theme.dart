@@ -4,8 +4,8 @@ import 'package:kiuf_quiz/utils/rgb.dart';
 class WidgetThemes {
   static List<BoxShadow> mainShadow = [
     BoxShadow(
-      blurRadius: 15,
-      color: RGB.grey.withOpacity(.6),
+      // blurRadius: 10,
+      color: RGB.grey.withOpacity(.4),
       spreadRadius: 1,
     ),
   ];

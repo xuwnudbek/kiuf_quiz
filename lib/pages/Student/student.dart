@@ -1,16 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 import 'package:kiuf_quiz/pages/Student/widgets/quiz_card.dart';
 import 'package:kiuf_quiz/providers/student/student_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
-import 'package:kiuf_quiz/utils/widgets/custom_input.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_loading_widget.dart';
-import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
-import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
 import 'package:provider/provider.dart';
 
 class StudentPage extends StatelessWidget {
@@ -46,6 +41,12 @@ class StudentPage extends StatelessWidget {
                     backgroundColor: RGB.white,
                     child: const Icon(Icons.person_rounded),
                   ),
+                  elevation: 5.0,
+                  surfaceTintColor: RGB.white,
+                  constraints: const BoxConstraints(
+                    maxWidth: 150,
+                    minWidth: 150,
+                  ),
                   itemBuilder: (context) {
                     return [
                       PopupMenuItem(
@@ -55,9 +56,12 @@ class StudentPage extends StatelessWidget {
                         },
                         child: const Row(
                           children: [
-                            Icon(Ionicons.log_out_outline),
+                            Icon(Ionicons.log_out_outline, color: Colors.red),
                             SizedBox(width: 8.0),
-                            Text("Profile"),
+                            Text(
+                              "Profile",
+                              style: TextStyle(color: Colors.red),
+                            ),
                           ],
                         ),
                       ),
@@ -118,7 +122,7 @@ class StudentPage extends StatelessWidget {
                                   return QuizCard(
                                     quiz: quiz,
                                     onPressed: () async {
-                                      //  provider.startQuiz();
+                                      provider.startQuiz(quiz);
                                     },
                                   );
                                 },

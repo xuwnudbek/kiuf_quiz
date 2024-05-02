@@ -1,34 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/providers/student/quiz_provider.dart';
+import 'package:kiuf_quiz/utils/extensions/string.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_input.dart';
 import 'package:provider/provider.dart';
 
 class StudentQuestionWidget extends StatelessWidget {
   const StudentQuestionWidget({
-    required this.question,
-    required this.isOpen,
     required this.index,
     super.key,
   });
 
-  final Map question;
   final int index;
-  final bool isOpen;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<QuizProvider>(builder: (context, provider, _) {
+      var question = provider.questions.elementAt(provider.tabController.index);
+      List answers = question['answers'];
+      bool isOpen = question['is_close'] == 0;
+
       return SizedBox(
         width: Get.width * 0.65,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text.rich(
               TextSpan(text: "${index + 1}. ", children: [
                 TextSpan(
-                  text: "In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
+                  text: "${question['question']}",
                   style: Get.textTheme.titleMedium,
                 ),
               ]),
@@ -38,22 +40,31 @@ class StudentQuestionWidget extends StatelessWidget {
             const SizedBox(height: 32.0),
             !isOpen
                 ? CustomInput(
-                    controller: TextEditingController(),
-                    hintText: "Type your answer here",
+                    controller: TextEditingController.fromValue(
+                      TextEditingValue(
+                        text: provider.answers[question['id']] ?? "",
+                        selection: TextSelection.collapsed(offset: provider.answers[question['id']]?.length ?? 0),
+                      ),
+                    ),
+                    hintText: "type_your_answer_here".tr,
                     bgColor: RGB.blueLight.withAlpha(150),
                     padding: const EdgeInsets.all(8.0),
                     maxLines: 20,
+                    onChanged: (value) {
+                      print(value);
+                      provider.addAnswer(question['id'].toString().toInt, value);
+                    },
                     maxLength: 2000,
                   )
                 : Wrap(
-                    children: List.generate(4, (index) {
+                    children: answers.map((answer) {
                       return AnswerTile(
-                        {"id": index},
+                        answer,
                         onPressed: () {
-                          print("Answer selected");
+                          provider.addAnswer(question['id'].toString().toInt, answer['id'].toString().toInt);
                         },
                       );
-                    }),
+                    }).toList(),
                   ),
           ],
         ),
@@ -81,43 +92,46 @@ class _AnswerTileState extends State<AnswerTile> {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (event) => setState(() => isHover = true),
-      onExit: (event) => setState(() => isHover = false),
-      cursor: MouseCursor.defer,
-      child: GestureDetector(
-        onTap: () {
-          widget.onPressed();
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: isHover ? RGB.blueLight : Colors.white,
-            borderRadius: BorderRadius.circular(8.0),
-            border: Border.all(
-              color: Colors.grey[300]!,
+    return Consumer<QuizProvider>(builder: (context, provider, _) {
+      var hasSelected = provider.checkSelection(widget.answer);
+
+      return MouseRegion(
+        onEnter: (event) => setState(() => isHover = true),
+        onExit: (event) => setState(() => isHover = false),
+        // cursor: MouseCursor.defer,
+        child: GestureDetector(
+          onTap: () {
+            widget.onPressed();
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              color: isHover ? RGB.blueLight.withAlpha(150) : Colors.white,
+              borderRadius: BorderRadius.circular(8.0),
+              border: Border.all(
+                color: hasSelected ? Colors.green : RGB.grey.withAlpha(100),
+              ),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+            margin: const EdgeInsets.only(bottom: 8.0),
+            child: Row(
+              children: [
+                const SizedBox(width: 8.0),
+                Icon(
+                  color: hasSelected ? Colors.green : RGB.grey.withAlpha(100),
+                  hasSelected ? Icons.check_circle_outline_rounded : Icons.circle_outlined,
+                ),
+                const SizedBox(width: 16.0),
+                Expanded(
+                  child: Text(
+                    "${widget.answer['answer']}",
+                    style: Get.textTheme.bodyLarge,
+                  ),
+                ),
+              ],
             ),
           ),
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-          margin: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            children: [
-              const SizedBox(width: 8.0),
-              Radio(
-                groupValue: 0,
-                value: true,
-                onChanged: (value) {},
-              ),
-              const SizedBox(width: 16.0),
-              Expanded(
-                child: Text(
-                  "In publishing and design, Lorem ipsum In publishing and graphic design, Lorem ipsum In publishing and graphic design, Lorem ipsum",
-                  style: Get.textTheme.bodyLarge,
-                ),
-              ),
-            ],
-          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }
