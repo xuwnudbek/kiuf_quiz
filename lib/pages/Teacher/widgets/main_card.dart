@@ -7,7 +7,6 @@ import 'package:kiuf_quiz/utils/extensions/string.dart';
 import 'package:kiuf_quiz/utils/functions/check_status.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
-import 'package:kiuf_quiz/utils/widgets/custom_square.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -253,6 +252,9 @@ class _MainCardState extends State<MainCard> {
                                 children: [
                                   Text("edit_quiz".tr),
                                 ],
+                              ),
+                              outlinedBorder: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(32.0),
                               ),
                               bgColor: RGB.primary,
                               onPressed: () {

@@ -38,6 +38,7 @@ Map<String, String> uz = {
   "start": "Boshlash",
   "quit": "Chiqish",
   "continue": "Davom etish",
+  "agree": "Roziman",
   "from": "dan",
   "to": "gacha",
   "show_quiz": "Testni ko'rish",
@@ -90,6 +91,13 @@ Map<String, String> uz = {
   "type_your_answer_here": "Javobingizni shu yerga kiriting",
   "this_quiz_already_answered": "Bu test allaqachon topshirilgan!",
   "quiz_time_is": "Test vaqti",
-
-  "finish": "Yakunlash",
+  "score": "ball",
+  "score_for_this_question": "Ushbu savol uchun ball",
+  "total_score_for_open_questions": "Ochiq savollar uchun umumiy baho",
+  "old_scores_maybe_changed": "Avvalgi qo`ygan baholaringiz ham yangilanib ketishi mumkin",
+  "not_found_any_data": "Hech qanday ma`lumot topilmadi",
+  "questions": "Savollar",
+  "answer_not_written": "Javob yozilmagan",
+  "finish_quiz": "Testni yakunlash",
+  "students": "Studentlar",
 };

@@ -13,7 +13,7 @@ class WidgetThemes {
   static List<BoxShadow> secShadow = [
     BoxShadow(
       blurRadius: 10,
-      color: RGB.grey.withOpacity(.4),
+      color: RGB.grey.withAlpha(150),
       spreadRadius: 1,
     ),
   ];

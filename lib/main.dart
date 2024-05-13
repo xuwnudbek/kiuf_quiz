@@ -12,8 +12,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await GetStorage.init("kiuf_quiz");
+  GetStorage.init("kiuf_quiz");
 
   runApp(const MainApp());
 }

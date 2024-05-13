@@ -103,9 +103,10 @@ class _AnswerTileState extends State<AnswerTile> {
           onTap: () {
             widget.onPressed();
           },
-          child: Container(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: widget.answer['is_true'] == 1 ? 600 : 200),
             decoration: BoxDecoration(
-              color: isHover ? RGB.blueLight.withAlpha(150) : Colors.white,
+              color: isHover ? RGB.blueLight.withAlpha(250) : Colors.white,
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(
                 color: hasSelected ? Colors.green : RGB.grey.withAlpha(100),

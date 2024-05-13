@@ -1,14 +1,10 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/pages/Student/widgets/quiz_indicator.dart';
 import 'package:kiuf_quiz/pages/Student/widgets/student_question_widget.dart';
 import 'package:kiuf_quiz/providers/student/quiz_provider.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_loading_widget.dart';
-import 'package:kiuf_quiz/utils/widgets/custom_square.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +72,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                       ),
                                       actions: [
                                         CustomButton(
-                                          title: Text("finish".tr),
+                                          title: Text("finish_quiz".tr),
                                           onPressed: () async {
                                             var res = await provider.finish();
                                             if (res == true) {

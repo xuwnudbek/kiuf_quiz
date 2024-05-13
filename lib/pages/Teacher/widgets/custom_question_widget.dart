@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/providers/teacher/question_provider.dart';
@@ -10,10 +11,12 @@ import 'package:provider/provider.dart';
 class CustomQuestionWidget extends StatelessWidget {
   const CustomQuestionWidget({
     required this.index,
+    required this.isLast,
     super.key,
   });
 
   final int index;
+  final bool isLast;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class CustomQuestionWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     color: RGB.blueLight,
                   ),
-                  height: 190,
+                  height: 200,
                   padding: const EdgeInsets.only(top: 24.0),
                   margin: const EdgeInsets.only(right: 24),
                   child: Column(
@@ -42,16 +45,10 @@ class CustomQuestionWidget extends StatelessWidget {
                         maxLines: 3,
                         padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                       ),
+                      const SizedBox(height: 8),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const SizedBox(width: 8),
-                          Text(
-                            question.isClose ? "close_quiz".tr : "open_quiz".tr,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
                           const SizedBox(width: 8),
                           Checkbox(
                             value: !question.isClose,
@@ -60,7 +57,56 @@ class CustomQuestionWidget extends StatelessWidget {
                               question.isClose = !value!;
                               provider.reload();
                             },
-                          )
+                          ),
+                          Text(
+                            question.isClose ? "close_quiz".tr : "open_quiz".tr,
+                          ),
+                          const Spacer(),
+                          Visibility(
+                            visible: !question.isClose,
+                            child: Row(
+                              children: [
+                                Text(
+                                  "${"score_for_this_question".tr}:",
+                                ),
+                                const SizedBox(width: 8.0),
+                                DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: RGB.white,
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                  child: SizedBox(
+                                    width: 60,
+                                    height: 40,
+                                    child: TextFormField(
+                                      controller: question.score,
+                                      onChanged: (value) {
+                                        provider.calculate();
+                                      },
+                                      inputFormatters: [
+                                        FilteringTextInputFormatter.digitsOnly,
+                                        LengthLimitingTextInputFormatter(2),
+                                      ],
+                                      decoration: InputDecoration(
+                                        hintText: "score".tr,
+                                        hintStyle: TextStyle(
+                                          fontSize: 16,
+                                          color: RGB.grey.withAlpha(150),
+                                        ),
+                                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                        enabledBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                        focusedBorder: const OutlineInputBorder(
+                                          borderSide: BorderSide(color: Colors.transparent),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -125,9 +171,9 @@ class CustomQuestionWidget extends StatelessWidget {
                   crossAxisSpacing: 8.0,
                   mainAxisSpacing: 8.0,
                 ),
-                itemCount: question.answers.length + (!question.isClose ? 1 : 0),
+                itemCount: (!question.isClose && isLast) ? question.answers.length + 1 : question.answers.length,
                 itemBuilder: (ctx, index) {
-                  if (index == question.answers.length && !question.isClose) {
+                  if (index == question.answers.length && !question.isClose && isLast) {
                     return CustomButton(
                       title: Icon(
                         Icons.add,
@@ -139,12 +185,13 @@ class CustomQuestionWidget extends StatelessWidget {
                         question.addAnswer();
                         provider.reload();
                       },
-                    ).marginOnly(right: 24);
+                    ).marginOnly(right: 24, bottom: 14);
                   }
 
                   var answer = question.answers[index];
                   return Stack(
                     children: [
+                      const SizedBox(height: 150, width: double.infinity),
                       CustomInput(
                         controller: answer.answer,
                         border: index > 0 ? null : Border.all(color: Colors.green, width: 2),
@@ -153,8 +200,9 @@ class CustomQuestionWidget extends StatelessWidget {
                       ).marginOnly(right: 24),
                       index == 0
                           ? const SizedBox.shrink()
-                          : Align(
-                              alignment: Alignment.centerRight,
+                          : Positioned(
+                              top: 20,
+                              right: 0,
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
@@ -164,6 +212,7 @@ class CustomQuestionWidget extends StatelessWidget {
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStatePropertyAll(RGB.white),
                                   ),
+                                  highlightColor: Colors.red.withAlpha(25),
                                   onPressed: () {
                                     question.removeAnswer(answer);
                                     provider.reload();

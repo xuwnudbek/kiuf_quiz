@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 
 class Question {
   int quizId = Storage.quizId!;
   TextEditingController question = TextEditingController();
-  int? score;
+  TextEditingController score = TextEditingController();
   bool isClose = false;
   List<Answer> answers = List.generate(
     4,
@@ -15,7 +16,7 @@ class Question {
     return {
       "quiz_id": quizId,
       "question": question.text,
-      "score": score ?? 0,
+      "score": int.tryParse(score.text) ?? 0,
       "is_close": isClose ? 1 : 0,
       "answers": answers.map((e) => e.toJson()).toList(),
     };

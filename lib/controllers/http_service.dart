@@ -26,6 +26,7 @@ class URL {
   static String studentQuestions = '$additional/student/answer/show';
   static String studentQuizzes = '$additional/student/quizze';
   static String studentAnswers = '$additional/student/answer/create';
+  static String studentAnswerUpdate = '$additional/student/answer/update';
 
   static String subjectsAndDepartments = 'getdata';
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:kiuf_quiz/pages/Teacher/widgets/custom_question_widget.dart';
@@ -40,25 +41,39 @@ class AddQuestion extends StatelessWidget {
                       child: Column(
                         children: [
                           const SizedBox(height: 16.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text.rich(
-                                TextSpan(
-                                  text: "tests".tr,
-                                  children: const [
-                                    TextSpan(
-                                      text: "",
-                                      style: TextStyle(
-                                        fontSize: 24,
-                                      ),
+                          AppBar(
+                            backgroundColor: Colors.transparent,
+                            surfaceTintColor: Colors.transparent,
+                            centerTitle: true,
+                            leading: const SizedBox.shrink(),
+                            title: Text(
+                              "tests".tr,
+                              style: TextStyle(
+                                fontSize: 36,
+                                color: RGB.primary,
+                              ),
+                            ),
+                            actions: [
+                              CustomButton(
+                                title: Row(
+                                  children: [
+                                    Icon(
+                                      Ionicons.save,
+                                      color: RGB.white,
+                                      size: 20,
+                                    ),
+                                    const SizedBox(width: 8.0),
+                                    Text(
+                                      "save".tr,
+                                      style: TextStyle(color: RGB.white),
                                     ),
                                   ],
-                                  style: const TextStyle(
-                                    fontSize: 36,
-                                  ),
                                 ),
+                                onPressed: () {
+                                  provider.saveQuestions();
+                                },
                               ),
+                              const SizedBox(width: 24.0),
                             ],
                           ),
                           const SizedBox(height: 16.0),
@@ -84,27 +99,83 @@ class AddQuestion extends StatelessWidget {
                                             controller: provider.scrollController,
                                             itemCount: provider.questions.length,
                                             itemBuilder: (context, index) {
-                                              return CustomQuestionWidget(index: index);
+                                              return Column(
+                                                children: [
+                                                  CustomQuestionWidget(
+                                                    index: index,
+                                                    isLast: index == provider.questions.length - 1,
+                                                  ),
+                                                  Visibility(
+                                                    visible: index < provider.questions.length - 1,
+                                                    child: const Divider(thickness: 2),
+                                                  ),
+                                                ],
+                                              );
                                             },
                                           ),
                                   ),
-                                  // const Spacer(),
                                   Row(
                                     children: [
-                                      CustomButton(
-                                        title: Row(
-                                          children: [
-                                            Icon(Ionicons.save, color: RGB.white, size: 20),
-                                            const SizedBox(width: 8.0),
-                                            Text(
-                                              "save".tr,
-                                              style: TextStyle(color: RGB.white),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${"total_score_for_open_questions".tr}:",
+                                          ),
+                                          const SizedBox(width: 8.0),
+                                          DecoratedBox(
+                                            decoration: BoxDecoration(
+                                              color: RGB.white,
+                                              borderRadius: BorderRadius.circular(4.0),
                                             ),
-                                          ],
-                                        ),
-                                        onPressed: () {
-                                          provider.saveQuestions();
-                                        },
+                                            child: SizedBox(
+                                              width: 80,
+                                              height: 40,
+                                              child: TextFormField(
+                                                controller: provider.totalScoreController,
+                                                inputFormatters: [
+                                                  FilteringTextInputFormatter.digitsOnly,
+                                                  LengthLimitingTextInputFormatter(3),
+                                                ],
+                                                decoration: InputDecoration(
+                                                  hintText: "score".tr,
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 16,
+                                                    color: RGB.grey.withAlpha(150),
+                                                  ),
+                                                  fillColor: Colors.amber,
+                                                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                                                  enabledBorder: const OutlineInputBorder(
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                  focusedBorder: const OutlineInputBorder(
+                                                    borderSide: BorderSide(color: Colors.transparent),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8.0),
+                                          SizedBox(
+                                            width: 39,
+                                            height: 39,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                provider.setTotalScore();
+                                              },
+                                              style: TextButton.styleFrom(
+                                                padding: EdgeInsets.zero,
+                                                iconColor: Colors.green,
+                                                backgroundColor: Colors.green.withAlpha(75),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(4),
+                                                ),
+                                              ),
+                                              child: const Icon(
+                                                Icons.check_rounded,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                       const Spacer(),
                                       CustomButton(

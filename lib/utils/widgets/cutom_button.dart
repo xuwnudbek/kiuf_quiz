@@ -6,6 +6,7 @@ class CustomButton extends StatefulWidget {
   const CustomButton({
     required this.title,
     this.bgColor,
+    this.outlinedBorder,
     this.splashColor,
     this.onPressed,
     super.key,
@@ -13,6 +14,7 @@ class CustomButton extends StatefulWidget {
 
   final Widget title;
   final Color? bgColor;
+  final OutlinedBorder? outlinedBorder;
   final Color? splashColor;
   final Function()? onPressed;
 
@@ -30,9 +32,10 @@ class _CustomButtonState extends State<CustomButton> {
         overlayColor: MaterialStatePropertyAll(widget.bgColor ?? RGB.primary),
         elevation: const MaterialStatePropertyAll(0.0),
         shape: MaterialStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
-          ),
+          widget.outlinedBorder ??
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
         ),
         foregroundColor: MaterialStatePropertyAll(RGB.white),
       ),

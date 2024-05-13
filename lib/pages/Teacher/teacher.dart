@@ -6,7 +6,7 @@ import 'package:kiuf_quiz/utils/rgb.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_dropdown.dart';
 import 'package:kiuf_quiz/utils/widgets/custom_loading_widget.dart';
 import 'package:kiuf_quiz/utils/widgets/cutom_button.dart';
-import 'package:kiuf_quiz/utils/widgets/main_card.dart';
+import 'package:kiuf_quiz/pages/Teacher/widgets/main_card.dart';
 import 'package:provider/provider.dart';
 import 'package:kiuf_quiz/providers/teacher/teacher_provider.dart';
 

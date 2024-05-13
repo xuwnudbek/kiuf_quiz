@@ -71,7 +71,8 @@ class QuizProvider extends ChangeNotifier {
     notifyListeners();
 
     if (hours == 0 && minute == 0 && seconds < 1) {
-      finish();
+      _timerPeriodic.cancel();
+      finish(false);
     }
   }
 
@@ -119,78 +120,80 @@ class QuizProvider extends ChangeNotifier {
 
   List<bool> statuses = [];
 
-  Future finish() async {
-    var res = await Get.dialog(Material(
-      color: Colors.transparent,
-      child: Center(
-        child: Container(
-          width: 300,
-          height: 175,
-          decoration: BoxDecoration(
-            color: RGB.white,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Spacer(),
-              Text(
-                "really_want_to_finish_this_quiz".tr,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                "dont_calculate_without_answered_question".tr,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 12,
-                  color: Colors.orange,
-                ),
-              ),
-              const Spacer(),
-              Row(
-                children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      elevation: 0.0,
-                    ),
-                    onPressed: () {
-                      Get.back(result: false);
-                    },
-                    child: Text("no".tr),
+  Future finish([bool hasConfirmation = true]) async {
+    if (hasConfirmation) {
+      var res = await Get.dialog(Material(
+        color: Colors.transparent,
+        child: Center(
+          child: Container(
+            width: 300,
+            height: 175,
+            decoration: BoxDecoration(
+              color: RGB.white,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Spacer(),
+                Text(
+                  "really_want_to_finish_this_quiz".tr,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
-                  const Spacer(),
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      foregroundColor: RGB.primary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.0),
-                      ),
-                      elevation: 0.0,
-                    ),
-                    onPressed: () {
-                      Get.back(result: true);
-                    },
-                    child: Text("yes".tr),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "dont_calculate_without_answered_question".tr,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.orange,
                   ),
-                ],
-              ),
-            ],
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        elevation: 0.0,
+                      ),
+                      onPressed: () {
+                        Get.back(result: false);
+                      },
+                      child: Text("no".tr),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      style: TextButton.styleFrom(
+                        foregroundColor: RGB.primary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        elevation: 0.0,
+                      ),
+                      onPressed: () {
+                        Get.back(result: true);
+                      },
+                      child: Text("yes".tr),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    ));
+      ));
 
-    if (res != true) return false;
+      if (res != true) return false;
+    }
 
     isSaving = true;
     notifyListeners();
@@ -206,7 +209,7 @@ class QuizProvider extends ChangeNotifier {
         "quiz_id": quiz['id'],
         "question_id": question['id'],
       }
-        ..addIf(question["is_close"] == 1, "answer", "")
+        ..addIf(question["is_close"] == 1, "answer", answers[question['id']])
         ..addIf(question["is_close"] == 0, "answer_id", answerId);
 
       var res = await HttpServise.POST(
