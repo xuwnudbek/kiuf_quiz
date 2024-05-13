@@ -100,4 +100,8 @@ Map<String, String> uz = {
   "answer_not_written": "Javob yozilmagan",
   "finish_quiz": "Testni yakunlash",
   "students": "Studentlar",
+
+  "quiz_date": "Test sanasi",
+  "start_time": "Bo-sh vaqti",
+  "end_time": "Tu-sh vaqti",
 };

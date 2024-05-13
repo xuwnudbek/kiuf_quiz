@@ -120,11 +120,10 @@ class TeacherPage extends StatelessWidget {
                         splashColor: RGB.primaryLight,
                         title: Icon(
                           Ionicons.reload,
-                          color: RGB.white,
-                          weight: 2,
+                          color: RGB.primary,
                           size: 22,
                         ),
-                        bgColor: RGB.primary,
+                        bgColor: RGB.blueLight,
                         onPressed: () {
                           provider.clear();
                         },

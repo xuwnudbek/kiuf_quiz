@@ -62,7 +62,8 @@ class _MainCardState extends State<MainCard> {
         onExit: (event) => setState(() {
           isHovered = false;
         }),
-        child: Container(
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
           margin: const EdgeInsets.all(8.0),
           width: double.infinity,
           decoration: BoxDecoration(
@@ -88,9 +89,10 @@ class _MainCardState extends State<MainCard> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                "#${widget.index + 1} test",
-                style: Get.textTheme.titleMedium!.copyWith(
+                "${widget.data['subject']}",
+                style: TextStyle(
                   color: RGB.primary,
+                  fontSize: 24,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -106,34 +108,15 @@ class _MainCardState extends State<MainCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${"subject".tr}: ",
-                              style: TextStyle(
-                                color: RGB.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "${widget.data['subject']}",
-                              style: TextStyle(
-                                color: RGB.primary,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                       const SizedBox(height: 4.0),
                       Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
-                              text: "${"count_all".tr}: ",
+                              text: "${"tests".tr}: ",
                               style: TextStyle(
                                 color: RGB.primary,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
@@ -141,48 +124,7 @@ class _MainCardState extends State<MainCard> {
                               text: "${(widget.data['questions'] ?? []).length} ${'counter'.tr}",
                               style: TextStyle(
                                 color: RGB.primary,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${"open_quiz".tr}: ",
-                              style: TextStyle(
-                                color: RGB.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "0 ${'counter'.tr}",
-                              style: TextStyle(
-                                color: RGB.primary,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const SizedBox(height: 4.0),
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "${"close_quiz".tr}: ",
-                              style: TextStyle(
-                                color: RGB.primary,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                            TextSpan(
-                              text: "0 ${'counter'.tr}",
-                              style: TextStyle(
-                                color: RGB.primary,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -196,6 +138,7 @@ class _MainCardState extends State<MainCard> {
                             "${"status_quiz".tr}: ",
                             style: TextStyle(
                               color: RGB.primary,
+                              fontSize: 16,
                               fontWeight: FontWeight.w700,
                             ),
                           ),
@@ -215,6 +158,7 @@ class _MainCardState extends State<MainCard> {
                                 statuses[widget.data['status'] - 1]["name"],
                                 style: TextStyle(
                                   color: statusColors[widget.data['status'] - 1],
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
@@ -223,24 +167,98 @@ class _MainCardState extends State<MainCard> {
                         ],
                       ),
                       const SizedBox(height: 4.0),
-                      Row(
-                        children: [
-                          Text(
-                            "${"type_quiz".tr}: ",
-                            style: TextStyle(
-                              color: RGB.primary,
-                              fontWeight: FontWeight.w700,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${"type_quiz".tr}: ",
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          Text(
-                            typeQuiz[widget.data['type']],
-                            style: TextStyle(
-                              color: RGB.primary,
-                              fontWeight: FontWeight.w400,
+                            TextSpan(
+                              text: typeQuiz[widget.data['type']],
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
+                      const SizedBox(height: 4.0),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${"quiz_date".tr}: ",
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                            TextSpan(
+                              text: widget.data['start_time'].toString().split(" ")[0],
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${"start_time".tr}: ",
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                            TextSpan(
+                              text: widget.data['start_time'].toString().toTime,
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 4.0),
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: "${"end_time".tr}: ",
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                              ),
+                            ),
+                            TextSpan(
+                              text: widget.data['end_time'].toString().toTime,
+                              style: TextStyle(
+                                color: RGB.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
                       const Spacer(),
                       //Edit button
                       Row(

@@ -93,14 +93,31 @@ class QuizProvider extends ChangeNotifier {
     if (res.status == HttpResponses.success) {
       quiz = res.data;
       questions = res.data['questions'];
-      questions.shuffle();
-      for (var question in questions) {
-        question['answers'].shuffle();
-      }
+
+      shuffleQuestions(questions);
     } else {
       CustomSnackbars.error(ctx, "Testni boshlashda xatolik yuz berdi!");
       Get.back();
     }
+  }
+
+  void shuffleQuestions(List questions) {
+    List openQuestions = [];
+    List closeQuestions = [];
+
+    for (var one in questions) {
+      (one['answers'] ?? []).shuffle();
+
+      if (one['is_close'] == 1) {
+        closeQuestions.add(one);
+      } else {
+        openQuestions.add(one);
+      }
+    }
+
+    questions.clear();
+    questions.addAll(openQuestions);
+    questions.addAll(closeQuestions);
   }
 
   void goToPrev() {

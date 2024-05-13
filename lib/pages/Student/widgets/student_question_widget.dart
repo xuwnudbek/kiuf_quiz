@@ -104,7 +104,7 @@ class _AnswerTileState extends State<AnswerTile> {
             widget.onPressed();
           },
           child: AnimatedContainer(
-            duration: Duration(milliseconds: widget.answer['is_true'] == 1 ? 600 : 200),
+            duration: Duration(milliseconds: widget.answer['is_true'] == 1 ? 400 : 200),
             decoration: BoxDecoration(
               color: isHover ? RGB.blueLight.withAlpha(250) : Colors.white,
               borderRadius: BorderRadius.circular(8.0),

@@ -32,8 +32,10 @@ class CustomThemeData {
     toolbarHeight: 70,
     backgroundColor: RGB.primary,
     foregroundColor: RGB.white,
-    titleTextStyle: textTheme.titleLarge!.copyWith(
-      fontFamily: GoogleFonts.montserrat().fontFamily,
+    titleTextStyle: GoogleFonts.montserrat(
+      fontSize: 28.0,
+      fontWeight: FontWeight.w700,
+      // fontFamily: GoogleFonts.montserrat().fontFamily,
     ),
   );
 }

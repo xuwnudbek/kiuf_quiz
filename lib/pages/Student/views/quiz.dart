@@ -120,12 +120,12 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                                         children: [
                                                           Icon(
                                                             Icons.arrow_left,
-                                                            color: RGB.primary,
+                                                            color: provider.tabController.index == 0 ? RGB.grey : RGB.primary,
                                                           ),
                                                           Text(
                                                             "prev".tr,
                                                             style: TextStyle(
-                                                              color: RGB.primary,
+                                                              color: provider.tabController.index == 0 ? RGB.grey : RGB.primary,
                                                             ),
                                                           ),
                                                         ],
@@ -137,7 +137,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                                       outlinedBorder: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(12.0),
                                                         side: BorderSide(
-                                                          color: RGB.primary,
+                                                          color: provider.tabController.index == 0 ? RGB.grey : RGB.primary,
                                                           width: 2,
                                                         ),
                                                       ),
@@ -150,12 +150,12 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                                           Text(
                                                             "next".tr,
                                                             style: TextStyle(
-                                                              color: RGB.primary,
+                                                              color: provider.tabController.index == provider.questions.length - 1 ? RGB.grey : RGB.primary,
                                                             ),
                                                           ),
                                                           Icon(
                                                             Icons.arrow_right,
-                                                            color: RGB.primary,
+                                                            color: provider.tabController.index == provider.questions.length - 1 ? RGB.grey : RGB.primary,
                                                           ),
                                                         ],
                                                       ),
@@ -166,7 +166,7 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                                       outlinedBorder: RoundedRectangleBorder(
                                                         borderRadius: BorderRadius.circular(12.0),
                                                         side: BorderSide(
-                                                          color: RGB.primary,
+                                                          color: provider.tabController.index == provider.questions.length - 1 ? RGB.grey : RGB.primary,
                                                           width: 2,
                                                         ),
                                                       ),

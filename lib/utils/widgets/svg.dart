@@ -5,12 +5,13 @@ class SVG extends StatelessWidget {
   const SVG(this.name, {this.size, super.key});
 
   final String name;
-  final Size? size;
+  final double? size;
 
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       "assets/icons/$name.svg",
+      width: size,
     );
   }
 }
