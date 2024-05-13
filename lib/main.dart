@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kiuf_quiz/pages/404/not_found.dart';
 
 import 'package:kiuf_quiz/controllers/language/language.dart';
@@ -40,9 +41,9 @@ class MainApp extends StatelessWidget {
       translations: Language(),
       theme: ThemeData(
         useMaterial3: true,
-        fontFamily: "Montserrat",
-        textTheme: CustomThemeData.textTheme,
+        fontFamily: GoogleFonts.montserrat().fontFamily,
         appBarTheme: CustomThemeData.appBarTheme,
+        textTheme: GoogleFonts.montserratTextTheme(),
         scaffoldBackgroundColor: RGB.white,
       ),
       transitionDuration: const Duration(milliseconds: 700),

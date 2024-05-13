@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
 
 class CustomThemeData {
@@ -31,6 +32,8 @@ class CustomThemeData {
     toolbarHeight: 70,
     backgroundColor: RGB.primary,
     foregroundColor: RGB.white,
-    titleTextStyle: textTheme.titleLarge!.copyWith(color: RGB.white),
+    titleTextStyle: textTheme.titleLarge!.copyWith(
+      fontFamily: GoogleFonts.montserrat().fontFamily,
+    ),
   );
 }

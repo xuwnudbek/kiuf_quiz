@@ -16,7 +16,7 @@ class QuizProvider extends ChangeNotifier {
 
   Map<int, dynamic> answers = {};
   void addAnswer(int questionId, dynamic ans) {
-    var hasContains = answers.containsKey(questionId);
+    // var hasContains = answers.containsKey(questionId);
     answers[questionId] = ans;
 
     notifyListeners();

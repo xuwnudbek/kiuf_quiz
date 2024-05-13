@@ -110,36 +110,65 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                                 StudentQuestionWidget(
                                                   index: provider.tabController.index,
                                                 ),
-
                                                 const Spacer(),
-                                                // Buttons
                                                 Row(
-                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                   children: [
-                                                    IconButton.outlined(
+                                                    CustomButton(
+                                                      title: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Icon(
+                                                            Icons.arrow_left,
+                                                            color: RGB.primary,
+                                                          ),
+                                                          Text(
+                                                            "prev".tr,
+                                                            style: TextStyle(
+                                                              color: RGB.primary,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
                                                       onPressed: () {
                                                         provider.goToPrev();
                                                       },
-                                                      icon: const Icon(
-                                                        Icons.arrow_back_ios_new_rounded,
-                                                        size: 32,
+                                                      bgColor: RGB.white,
+                                                      outlinedBorder: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(12.0),
+                                                        side: BorderSide(
+                                                          color: RGB.primary,
+                                                          width: 2,
+                                                        ),
                                                       ),
                                                     ),
-                                                    const SizedBox(width: 16),
-                                                    Text(
-                                                      "${provider.questions.length}/${provider.answers.length}",
-                                                      style: const TextStyle(
-                                                        fontSize: 22,
+                                                    // const Spacer(),
+                                                    CustomButton(
+                                                      title: Row(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          Text(
+                                                            "next".tr,
+                                                            style: TextStyle(
+                                                              color: RGB.primary,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.arrow_right,
+                                                            color: RGB.primary,
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ),
-                                                    const SizedBox(width: 16),
-                                                    IconButton.outlined(
                                                       onPressed: () {
                                                         provider.goToNext();
                                                       },
-                                                      icon: const Icon(
-                                                        Icons.arrow_forward_ios_rounded,
-                                                        size: 32,
+                                                      bgColor: RGB.white,
+                                                      outlinedBorder: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius.circular(12.0),
+                                                        side: BorderSide(
+                                                          color: RGB.primary,
+                                                          width: 2,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],

@@ -37,8 +37,6 @@ class AuthProvider extends ChangeNotifier {
     );
 
     if (res.status == HttpResponses.success) {
-      log("auth: ${res.data}");
-
       Storage.setUser(res.data['user']);
       Storage.setToken(res.data['token']);
 

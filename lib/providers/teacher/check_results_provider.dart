@@ -100,13 +100,10 @@ class CheckResultsProvider extends ChangeNotifier {
   Map closeQuestionsScores = {};
 
   void calculateCloseQuestionsScore() {
-    log("totalCloseQuestionsScore: $totalCloseQuestionsScore");
-    log("totalScore1: $totalScore");
     totalCloseQuestionsScore = 0;
     for (var closeQuestionsScore in closeQuestionsScores.entries) {
       totalCloseQuestionsScore += closeQuestionsScore.value.text.toString().toInt;
     }
-    log("totalScore2: $totalScore");
     notifyListeners();
   }
 

@@ -178,7 +178,6 @@ class QuizProvider extends ChangeNotifier {
     if (res.status == HttpResponses.success) {
       CustomSnackbars.success(ctx, "quiz_successfully_updated".tr);
     }
-    // log("${res.data}");
 
     isUpdating = false;
     notifyListeners();
