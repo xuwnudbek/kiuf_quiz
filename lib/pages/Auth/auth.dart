@@ -93,7 +93,7 @@ class AuthPage extends StatelessWidget {
                                 ],
                               ),
                               onPressed: () {
-                                provider.login();
+                                provider.login(context);
                               },
                             ),
                           ],

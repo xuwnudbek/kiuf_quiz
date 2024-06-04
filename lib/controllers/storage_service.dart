@@ -39,6 +39,7 @@ class Storage {
   // Clear all data from storage
   static void clear() {
     box.erase();
+    save();
   }
 
   // Check if data exists in storage

@@ -23,7 +23,7 @@ class AddQuestion extends StatelessWidget {
               backgroundColor: RGB.blueLight,
               appBar: AppBar(
                 foregroundColor: RGB.white,
-                title: Text('add_question'.tr),
+                title: Text('add_question'.tr, style: TextStyle(color: RGB.white)),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {

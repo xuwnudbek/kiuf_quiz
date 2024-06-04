@@ -23,18 +23,16 @@ class CheckResults extends StatelessWidget {
         return Consumer<CheckResultsProvider>(builder: (context, provider, _) {
           return Scaffold(
               appBar: AppBar(
-                title: Text(
-                  'check_results'.tr,
-                ),
+                title: Text('check_results'.tr, style: TextStyle(color: RGB.white)),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
-                    Get.back();
+                    Get.offAllNamed('/teacher');
                   },
                 ),
                 actionsIconTheme: IconThemeData(color: RGB.white),
-                actions: [
-                  const SizedBox(width: 16),
+                actions: const [
+                  SizedBox(width: 16),
                 ],
               ),
               body: Padding(
@@ -100,7 +98,7 @@ class CheckResults extends StatelessWidget {
                                           IconButton(
                                             color: RGB.grey,
                                             onPressed: () {
-                                              // provider.exportAllStudentToPdf();
+                                              provider.exportAllStudentToPdf(context);
                                             },
                                             tooltip: "Download all students results as PDF",
                                             icon: const SVG(
@@ -157,7 +155,9 @@ class CheckResults extends StatelessWidget {
                                                             ),
                                                           ],
                                                         ),
+                                                        bgColor: provider.closeQuestionsScores.isEmpty ? RGB.grey : RGB.primary,
                                                         onPressed: () {
+                                                          if (provider.closeQuestionsScores.isEmpty) return;
                                                           provider.saveQuestions();
                                                         },
                                                       ),
@@ -182,7 +182,7 @@ class CheckResults extends StatelessWidget {
                   : FloatingActionButton(
                       backgroundColor: RGB.primary,
                       onPressed: () {
-                        // provider.downloadStudentResultsAsPDF();
+                        provider.downloadStudentResultsAsPDF(context);
                       },
                       tooltip: "Download student results as PDF",
                       child: Icon(

@@ -100,6 +100,8 @@ Map<String, String> uz = {
   "answer_not_written": "Javob yozilmagan",
   "finish_quiz": "Testni yakunlash",
   "students": "Studentlar",
+  "do_you_want_save_changes": "O'zgarishlarni saqlamoqchimisiz?",
+  "error_with_download": "Yuklab olishda xatolik yuz berdi",
 
   "quiz_date": "Test sanasi",
   "start_time": "Bo-sh vaqti",

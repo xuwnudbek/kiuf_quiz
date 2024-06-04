@@ -24,7 +24,7 @@ class AddQuiz extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 foregroundColor: RGB.white,
-                title: Text('add_quiz'.tr),
+                title: Text('add_quiz'.tr, style: TextStyle(color: RGB.white)),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () {
@@ -55,7 +55,7 @@ class AddQuiz extends StatelessWidget {
                               size: const Size(double.infinity, 50.0),
                               data: provider.departments,
                               fillColor: RGB.white,
-                              // hintText: 'select_department'.tr,
+                              hintText: 'select_department'.tr,
                               onChange: (value) {
                                 provider.setDepartment(value);
                               },

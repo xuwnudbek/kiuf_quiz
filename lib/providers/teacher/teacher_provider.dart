@@ -129,6 +129,8 @@ class TeacherProvider extends ChangeNotifier {
       departments.clear();
       departments.addAll(res.data);
       notifyListeners();
+    } else {
+      print(res);
     }
   }
 

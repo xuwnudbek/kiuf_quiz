@@ -275,11 +275,12 @@ class _MainCardState extends State<MainCard> {
                                 borderRadius: BorderRadius.circular(32.0),
                               ),
                               bgColor: RGB.primary,
-                              onPressed: () {
+                              onPressed: () async {
                                 Storage.setQuizId(widget.data["id"]);
-                                Get.toNamed("/show-quiz")!.then((value) {
+                                var res = await Get.toNamed("/show-quiz");
+                                if (res == true) {
                                   provider.init();
-                                });
+                                }
                               },
                             ),
                           ),

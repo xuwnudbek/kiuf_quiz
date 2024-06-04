@@ -25,7 +25,8 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
           builder: (context, provider, _) {
             return Scaffold(
               appBar: AppBar(
-                title: Text('quiz'.tr),
+                title: Text('quiz'.tr, style: TextStyle(color: RGB.white)),
+                foregroundColor: RGB.white,
                 leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back,
@@ -97,7 +98,6 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                               ),
                                               itemCount: provider.questions.length,
                                               shrinkWrap: true,
-                                              //"extent" -> "kenglik"
                                               itemBuilder: (context, index) {
                                                 return QuizIndicator(index);
                                               },
@@ -107,10 +107,13 @@ class _QuizPageState extends State<QuizPage> with TickerProviderStateMixin {
                                             child: Column(
                                               children: [
                                                 const SizedBox(height: 36),
+                                                //StudentQuestionWidget
                                                 StudentQuestionWidget(
                                                   index: provider.tabController.index,
                                                 ),
+                                                //Spacer beetween StudentQuestionWidget and bottom Buttons
                                                 const Spacer(),
+                                                //bottom Buttons
                                                 Row(
                                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                                   children: [

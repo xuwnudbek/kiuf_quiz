@@ -30,11 +30,11 @@ class ShowQuiz extends StatelessWidget {
             return Scaffold(
                 appBar: AppBar(
                   foregroundColor: RGB.white,
-                  title: Text('show_quiz'.tr),
+                  title: Text('show_quiz'.tr, style: TextStyle(color: RGB.white)),
                   leading: IconButton(
                     icon: const Icon(Icons.arrow_back),
                     onPressed: () {
-                      Get.back();
+                      Get.back(result: false);
                     },
                   ),
                 ),

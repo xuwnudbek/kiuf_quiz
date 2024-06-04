@@ -19,7 +19,8 @@ class StudentPage extends StatelessWidget {
         return Consumer<StudentProvider>(builder: (context, provider, _) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Student'),
+              title: Text('Student', style: TextStyle(color: RGB.white)),
+              foregroundColor: RGB.white,
               backgroundColor: RGB.primary,
               actions: [
                 Text(

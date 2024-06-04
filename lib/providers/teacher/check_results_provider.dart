@@ -1,4 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'dart:convert';
 import 'dart:developer';
+import 'dart:html' as html;
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +11,7 @@ import 'package:kiuf_quiz/controllers/http_service.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 import 'package:kiuf_quiz/utils/extensions/string.dart';
 import 'package:kiuf_quiz/utils/rgb.dart';
+import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 
 class CheckResultsProvider extends ChangeNotifier {
   // Add your code here
@@ -86,7 +92,6 @@ class CheckResultsProvider extends ChangeNotifier {
 
     if (res.status == HttpResponses.success) {
       studentQuestions = res.data;
-      inspect(res.data);
     }
 
     calculateScores();
@@ -134,57 +139,6 @@ class CheckResultsProvider extends ChangeNotifier {
   }
 
   Future<void> saveQuestions() async {
-    if (closeQuestionsScores.isEmpty) {
-      await Get.dialog(Material(
-        color: Colors.transparent,
-        child: Center(
-          child: Container(
-            width: 350,
-            height: 200,
-            decoration: BoxDecoration(
-              color: RGB.white,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Text(
-                  "".tr,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Colors.red,
-                  ),
-                ),
-                const Spacer(),
-                Row(
-                  children: [
-                    const Spacer(),
-                    TextButton(
-                      style: TextButton.styleFrom(
-                        foregroundColor: RGB.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.0),
-                        ),
-                        elevation: 0.0,
-                      ),
-                      onPressed: () {
-                        Get.back();
-                      },
-                      child: Text("ok".tr),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      ));
-    }
-
     isUpdating = true;
     notifyListeners();
 
@@ -205,6 +159,57 @@ class CheckResultsProvider extends ChangeNotifier {
 
     isUpdating = false;
     notifyListeners();
+  }
+
+  //downloadStudentResultsAsPDF
+
+  bool isDownloading = false;
+  Future<void> downloadStudentResultsAsPDF(BuildContext ctx) async {
+    isDownloading = true;
+    notifyListeners();
+
+    var res = await HttpServise.GETPDF(
+      "${URL.downloadStudentResultsAsPDF}/${Storage.quizId}/${student['loginId']}",
+    );
+
+    if (res != null) {
+      html.Blob blob = html.Blob([res.bodyBytes]);
+
+      var anchor = html.AnchorElement(href: html.Url.createObjectUrlFromBlob(blob));
+      anchor
+        ..download = '${student['name']}.pdf'
+        ..click();
+    } else {
+      CustomSnackbars.error(ctx, "error_with_download".tr);
+    }
+
+    isDownloading = false;
+    notifyListeners();
+  }
+
+  Future exportAllStudentToPdf(BuildContext ctx) async {
+    var res = await HttpServise.GETPDF(
+      "${URL.downloadAllStudentresults}/${Storage.quizId}",
+    );
+    inspect(res);
+
+    if (res != null && res.statusCode == 200) {
+      List data = jsonDecode(res.body);
+
+      for (var one in data) {
+        var studentName = one['studentName'];
+        var pdfBase64 = one['pdfBase64'];
+
+        var bytes = base64Decode(pdfBase64);
+        var blob = html.Blob([bytes]);
+        var anchor = html.AnchorElement(href: html.Url.createObjectUrlFromBlob(blob));
+        anchor
+          ..download = '$studentName.pdf'
+          ..click();
+      }
+    } else {
+      CustomSnackbars.error(ctx, "error_with_download".tr);
+    }
   }
 }
 

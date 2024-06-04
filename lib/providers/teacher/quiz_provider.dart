@@ -108,7 +108,10 @@ class QuizProvider extends ChangeNotifier {
     if (res.status == HttpResponses.success) {
       departments.clear();
       departments.addAll(res.data);
+
       notifyListeners();
+    } else {
+      print(res.data);
     }
   }
 
@@ -129,6 +132,10 @@ class QuizProvider extends ChangeNotifier {
 
   // Create New Quiz
   Future createQuiz() async {
+    if (department.isEmpty || course.isEmpty || type.isEmpty || subject.isEmpty || dateWithTime == null) {
+      return;
+    }
+
     isCreating = true;
     notifyListeners();
 

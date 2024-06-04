@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kiuf_quiz/controllers/http_service.dart';
 import 'package:kiuf_quiz/controllers/storage_service.dart';
+import 'package:kiuf_quiz/utils/widgets/custom_snackbars.dart';
 
 class AuthProvider extends ChangeNotifier {
   var userId = TextEditingController();
@@ -22,7 +23,7 @@ class AuthProvider extends ChangeNotifier {
   }
 
   bool isLoading = false;
-  Future<void> login() async {
+  Future<void> login(BuildContext ctx) async {
     isLoading = true;
     notifyListeners();
 
@@ -45,6 +46,8 @@ class AuthProvider extends ChangeNotifier {
       } else {
         Get.offAllNamed("/student");
       }
+    } else {
+      CustomSnackbars.error(ctx, res.data['error'].toString());
     }
 
     isLoading = false;

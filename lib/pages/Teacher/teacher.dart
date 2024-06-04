@@ -21,7 +21,8 @@ class TeacherPage extends StatelessWidget {
         return Consumer<TeacherProvider>(builder: (context, provider, _) {
           return Scaffold(
             appBar: AppBar(
-              title: const Text('Teacher'),
+              title: Text('Teacher', style: TextStyle(color: RGB.white)),
+              foregroundColor: RGB.white,
               shadowColor: RGB.primary,
               backgroundColor: RGB.primary,
               actions: [
@@ -136,25 +137,29 @@ class TeacherPage extends StatelessWidget {
                         ? Center(
                             child: CustomLoadingWidget(),
                           )
-                        : Padding(
-                            padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
-                            child: ScrollConfiguration(
-                              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                              child: GridView.builder(
-                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 5,
-                                  crossAxisSpacing: 16.0,
-                                  mainAxisSpacing: 16.0,
-                                  mainAxisExtent: 350.0,
+                        : provider.filteredQuizzes.isEmpty
+                            ? Center(
+                                child: Text("no_any_quizzes".tr),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.only(left: 24.0, top: 24.0, right: 24.0),
+                                child: ScrollConfiguration(
+                                  behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                                  child: GridView.builder(
+                                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 5,
+                                      crossAxisSpacing: 16.0,
+                                      mainAxisSpacing: 16.0,
+                                      mainAxisExtent: 350.0,
+                                    ),
+                                    itemCount: provider.filteredQuizzes.length,
+                                    itemBuilder: (context, index) {
+                                      var quiz = provider.filteredQuizzes[index];
+                                      return MainCard(quiz, index: index);
+                                    },
+                                  ),
                                 ),
-                                itemCount: provider.filteredQuizzes.length,
-                                itemBuilder: (context, index) {
-                                  var quiz = provider.filteredQuizzes[index];
-                                  return MainCard(quiz, index: index);
-                                },
                               ),
-                            ),
-                          ),
                   ),
                 ],
               ),

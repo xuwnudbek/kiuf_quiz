@@ -15,11 +15,14 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        _opacity = 1;
-      });
-    });
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () {
+        setState(() {
+          _opacity = 1;
+        });
+      },
+    );
     super.initState();
   }
 

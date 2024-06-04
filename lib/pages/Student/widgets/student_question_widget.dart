@@ -128,6 +128,7 @@ class _AnswerTileState extends State<AnswerTile> {
                     style: Get.textTheme.bodyLarge,
                   ),
                 ),
+                
               ],
             ),
           ),

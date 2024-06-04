@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -92,22 +93,20 @@ class QuizProvider extends ChangeNotifier {
 
     if (res.status == HttpResponses.success) {
       quiz = res.data;
-      questions = res.data['questions'];
 
-      shuffleQuestions(questions);
+      shuffleQuestions(res.data['questions']);
     } else {
       CustomSnackbars.error(ctx, "Testni boshlashda xatolik yuz berdi!");
       Get.back();
     }
   }
 
-  void shuffleQuestions(List questions) {
+  void shuffleQuestions(List data) {
     List openQuestions = [];
     List closeQuestions = [];
 
-    for (var one in questions) {
+    for (var one in data) {
       (one['answers'] ?? []).shuffle();
-
       if (one['is_close'] == 1) {
         closeQuestions.add(one);
       } else {
@@ -118,6 +117,8 @@ class QuizProvider extends ChangeNotifier {
     questions.clear();
     questions.addAll(openQuestions);
     questions.addAll(closeQuestions);
+    notifyListeners();
+
   }
 
   void goToPrev() {

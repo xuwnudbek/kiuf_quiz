@@ -1,13 +1,15 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'dart:html' as html;
+import 'dart:typed_data';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:kiuf_quiz/controllers/storage_service.dart';
 
 class URL {
-  static String domain = '172.16.91.50:8000';
+  static String domain = '127.0.0.1:8000';
 
   static String additional = "api";
   static String login = '$additional/login';
@@ -26,6 +28,10 @@ class URL {
   static String studentQuizzes = '$additional/student/quizze';
   static String studentAnswers = '$additional/student/answer/create';
   static String studentAnswerUpdate = '$additional/student/answer/update';
+
+  //downloadStudentResultsAsPDF
+  static String downloadStudentResultsAsPDF = '$additional/generate-pdf';
+  static String downloadAllStudentresults = '$additional/generate-quiz-pdf';
 
   static String subjectsAndDepartments = 'getdata';
 
@@ -89,7 +95,7 @@ class HttpServise {
         );
       } else {
         response = HttpResponse(
-          res.body,
+          jsonDecode(res.body),
           HttpResponses.error,
         );
       }
@@ -101,6 +107,26 @@ class HttpServise {
     }
 
     return response;
+  }
+
+  //Get request without token to download pdf
+  static Future<http.Response?> GETPDF(url, {param}) async {
+    var headers = {
+      "Content-Type": "application/pdf",
+    };
+
+    try {
+      Uri uri = Uri.http(URL.domain, url, param);
+      var res = await http.get(uri, headers: headers);
+
+      if (res.statusCode < 299) {
+        return res;
+      }
+    } catch (e) {
+      return null;
+    }
+
+    return null;
   }
 }
 
